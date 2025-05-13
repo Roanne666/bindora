@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs5lqcrqxsc2e"]
+
+[ext_resource type="Script" uid="uid://ve0ttlmb4x6b" path="res://test/move/move.gd" id="1_c48b1"]
+[ext_resource type="Texture2D" uid="uid://cw0acshjvtjjw" path="res://icon.svg" id="2_82e2u"]
+
+[node name="Move" type="Node2D"]
+script = ExtResource("1_c48b1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 344)
+texture = ExtResource("2_82e2u")

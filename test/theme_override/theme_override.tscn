@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh3bl235ejwxu"]
+
+[ext_resource type="Script" uid="uid://cgfvenah1flux" path="res://test/theme_override/theme_override.gd" id="1_ou5vc"]
+
+[node name="ThemeOverride" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ou5vc")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 64.0
+offset_right = 271.0
+offset_bottom = 87.0
+text = "This is a theme override label."
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 216.0
+offset_bottom = 48.0
+min_value = 24.0
+max_value = 36.0
+value = 24.0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 184.0
+offset_right = 224.0
+offset_bottom = 208.0

@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb81duqpncuhi"]
+
+[ext_resource type="Script" uid="uid://k8um2h0vnv47" path="res://test/check_box/check_box.gd" id="1_0ajms"]
+[ext_resource type="ButtonGroup" uid="uid://drgn42hbqdd4f" path="res://test/check_box/button_group.tres" id="2_4uy2d"]
+
+[node name="CheckBoxTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ajms")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 40.0
+offset_right = 213.0
+offset_bottom = 63.0
+text = "You select {{value}}"
+
+[node name="Radio" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 72.0
+offset_right = 137.0
+offset_bottom = 103.0
+button_group = ExtResource("2_4uy2d")
+text = "Apple"
+
+[node name="Radio2" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 72.0
+offset_right = 231.0
+offset_bottom = 104.0
+button_group = ExtResource("2_4uy2d")
+text = "Banana"
+
+[node name="Radio3" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 72.0
+offset_right = 326.0
+offset_bottom = 104.0
+button_group = ExtResource("2_4uy2d")
+text = "Orange"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 213.0
+offset_bottom = 151.0
+text = "You select {{value}}"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 160.0
+offset_right = 137.0
+offset_bottom = 191.0
+text = "Apple"
+
+[node name="CheckBox2" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 160.0
+offset_right = 231.0
+offset_bottom = 191.0
+text = "Banana"
+
+[node name="CheckBox3" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 160.0
+offset_right = 326.0
+offset_bottom = 191.0
+text = "Orange"

@@ -1,0 +1,195 @@
+[gd_scene load_steps=10 format=3 uid="uid://c6b8j7h68v05d"]
+
+[ext_resource type="Script" uid="uid://dpxttg5vihywp" path="res://test/basic/basic.gd" id="1_3k6wg"]
+[ext_resource type="Script" uid="uid://dqby706be3782" path="res://bindora/ref/ref_variant/ref_string.gd" id="2_j5qnw"]
+[ext_resource type="Script" uid="uid://16bgbap4qq3b" path="res://bindora/ref/ref_variant/ref_color.gd" id="3_gpfho"]
+[ext_resource type="Script" uid="uid://belehwqb303y4" path="res://bindora/ref/ref_variant/ref_float.gd" id="3_oxse3"]
+[ext_resource type="Shader" uid="uid://d2t6fmet36dl6" path="res://test/basic/basic.gdshader" id="5_prbnh"]
+
+[sub_resource type="Resource" id="Resource_oxse3"]
+script = ExtResource("2_j5qnw")
+type = 4
+value = "apple"
+metadata/_custom_type_script = "uid://dqby706be3782"
+
+[sub_resource type="Resource" id="Resource_gpfho"]
+script = ExtResource("3_oxse3")
+type = 3
+value = 200.0
+metadata/_custom_type_script = "uid://belehwqb303y4"
+
+[sub_resource type="Resource" id="Resource_prbnh"]
+script = ExtResource("3_gpfho")
+type = 20
+value = Color(0.260021, 0.260021, 0.260021, 1)
+metadata/_custom_type_script = "uid://16bgbap4qq3b"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6cb57"]
+shader = ExtResource("5_prbnh")
+shader_parameter/color = Color(0.315797, 0.315797, 0.315797, 1)
+
+[node name="Basic" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3k6wg")
+text_ref = SubResource("Resource_oxse3")
+max_value_ref = SubResource("Resource_gpfho")
+color_ref = SubResource("Resource_prbnh")
+metadata/_edit_lock_ = true
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6cb57")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.303971, 0.30397, 0.30397, 1)
+
+[node name="TextLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0007
+offset_top = 24.0
+offset_right = 273.001
+offset_bottom = 47.0
+text = "This is a template with {{value}}."
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 24.0007
+offset_top = 56.0
+offset_right = 271.001
+offset_bottom = 141.0
+text = "asdasd"
+
+[node name="ButtonLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0007
+offset_top = 152.0
+offset_right = 223.001
+offset_bottom = 175.0
+text = "You click button {{value}}."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0007
+offset_top = 184.0
+offset_right = 316.001
+offset_bottom = 288.0
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "button1"
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "button2"
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "button3"
+
+[node name="Button4" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "button4"
+
+[node name="Slider" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -224.0
+offset_right = -184.0
+offset_bottom = 40.0
+
+[node name="SliderLabel" type="Label" parent="Slider"]
+layout_mode = 0
+offset_left = 608.001
+offset_top = 24.0
+offset_right = 848.001
+offset_bottom = 47.0
+text = "Slider's max_value is {{value}}."
+
+[node name="MaxValueSlider" type="HSlider" parent="Slider"]
+layout_mode = 0
+offset_left = 608.001
+offset_top = 56.0
+offset_right = 856.001
+offset_bottom = 72.0
+max_value = 300.0
+value = 10.0
+
+[node name="ColorRect" type="ColorRect" parent="Slider"]
+layout_mode = 0
+offset_left = 632.001
+offset_top = 104.0
+offset_right = 832.001
+offset_bottom = 304.0
+
+[node name="WidthSlider" type="HSlider" parent="Slider"]
+layout_mode = 0
+offset_left = 632.001
+offset_top = 80.0
+offset_right = 832.001
+offset_bottom = 96.0
+max_value = 200.0
+value = 10.0
+
+[node name="HeightSlider" type="HSlider" parent="Slider"]
+layout_mode = 0
+offset_left = 624.001
+offset_top = 104.0
+offset_right = 824.001
+offset_bottom = 120.0
+rotation = 1.5708
+max_value = 200.0
+value = 10.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 24.0
+offset_right = 820.0
+offset_bottom = 47.0
+text = "Background color "
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 56.0
+offset_right = 904.0
+offset_bottom = 80.0
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 304.0
+offset_right = 192.0
+offset_bottom = 344.0
+text = "switch disabled"
+
+[node name="CheckButton2" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 24.001
+offset_top = 336.0
+offset_right = 192.001
+offset_bottom = 376.0
+text = "series  check"
+
+[node name="TimesButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.001
+offset_top = 376.0
+offset_right = 240.001
+offset_bottom = 456.0
+text = "click me!"
+
+[node name="MousePositionLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 472.0
+offset_right = 72.0
+offset_bottom = 495.0
+text = "Your mouse position is {{value}}"

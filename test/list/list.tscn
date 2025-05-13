@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://7po5e5h8d3c5"]
+
+[ext_resource type="Script" uid="uid://cs66rlqutkbu4" path="res://test/list/list.gd" id="1_7ajmp"]
+
+[node name="List" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7ajmp")
+
+[node name="ItemList" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 40.0
+offset_right = 144.0
+offset_bottom = 160.0
+theme_override_constants/separation = 15
+
+[node name="AddItemButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 40.0
+offset_right = 275.0
+offset_bottom = 71.0
+text = "Add new item"
+
+[node name="RandomRemoveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 81.0
+offset_right = 349.0
+offset_bottom = 112.0
+text = "Ranom remove an item"
+
+[node name="RandomModifyButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 120.0
+offset_right = 349.0
+offset_bottom = 151.0
+text = "Ranom modify an item"
+
+[node name="ReverseItemsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 159.0
+offset_right = 349.0
+offset_bottom = 190.0
+text = "Reverse items"
+
+[node name="SortItemsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 201.0
+offset_right = 349.0
+offset_bottom = 232.0
+text = "Sort items"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 244.0
+offset_right = 205.0
+offset_bottom = 267.0
+text = "You haved created {{value}} items"
