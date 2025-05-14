@@ -50,7 +50,7 @@ text_ref.bind_text(self)
 
 # Create a watcher
 text_ref.create_watcher(func(watcher,new_value):
-	print("Text changed to: ", new_value)
+    print("Text changed to: ", new_value)
 )
 
 # Wait for a while
@@ -77,12 +77,12 @@ Using `RefArray` in combination.
 var packed_scene = preload("res://path/to/your/packed_scene.tscn")
 var array = RefArray.new()
 array.bind_list($Container, packed_scene, func(item, data , index):
-	data.text_ref.bind_text(item)
+    data.text_ref.bind_text(item)
 )
 for i in 3:
-	var new_item = MyResource.new()
-	new_item.text_ref.set_value("Item " + i)
-	array.append(new_item)
+    var new_item = MyResource.new()
+    new_item.text_ref.set_value("Item " + i)
+    array.append(new_item)
 ```
 
 ## API Reference
