@@ -87,7 +87,7 @@ for i in 3:
 
 ## API Reference
 
-### Basic Variable Types - [`RefVariant`](bindora/ref/ref_variant/ref_variant.gd)
+### Basic Variable Types - [`RefVariant`](bindora/ref/ref_variant.gd)
 [`RefBool`](bindora/ref/ref_variant/ref_bool.gd), [`RefInt`](bindora/ref/ref_variant/ref_int.gd), [`RefFloat`](bindora/ref/ref_variant/ref_float.gd), [`RefString`](bindora/ref/ref_variant/ref_string.gd), [`RefVector2`](bindora/ref/ref_variant/ref_vector2.gd), [`RefVector2i`](bindora/ref/ref_variant/ref_vector2i.gd), [`RefVector3`](bindora/ref/ref_variant/ref_vector3.gd), [`RefVector3i`](bindora/ref/ref_variant/ref_vector3i.gd), [`RefVector4`](bindora/ref/ref_variant/ref_vector4.gd), [`RefVector4i`](bindora/ref/ref_variant/ref_vector4i.gd), [`RefRect2`](bindora/ref/ref_variant/ref_rect2.gd), [`RefRect2i`](bindora/ref/ref_variant/ref_rect2i.gd), [`RefColor`](bindora/ref/ref_variant/ref_color.gd)
 
 Binding methods:
@@ -105,20 +105,17 @@ Binding methods:
 - bind_multi_toggle(_dict: Dictionary[CanvasItem, bool]) -> Dictionary[CanvasItem, [ToggleBinding](bindora/binding/toggle_binding.gd)]
 
 ### Special Types
-[`RefArray`](/bindora/ref/ref_special/ref_array.gd)
+[`RefArray`](bindora/ref/ref_special/ref_array.gd)
 - bind_text(_node: CanvasItem, _keyword: String = "value", _template: String = "") -> [TextBinding](bindora/binding/text_binding.gd) 
 - bind_check_boxes(_nodes: Array[CanvasItem]) -> Dictionary[CanvasItem, [CheckBoxBinding](bindora/binding/check_box_binding.gd)]
 - bind_check_boxes_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, [CheckBoxBinding](bindora/binding/check_box_binding.gd)]
 - bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -> [ListBinding](bindora/binding/list_binding.gd)
 
-[`RefDictionary`](/bindora/ref/ref_special/ref_dictionary.gd)
+[`RefDictionary`](bindora/ref/ref_special/ref_dictionary.gd)
 - bind_text(_node: CanvasItem, _template: String = "") -> [TextBinding](bindora/binding/text_binding.gd)
 
-### Resource Types - [`RefResource`](bindora/ref/ref_resource/ref_resource.gd)
-- `RefFont`
-- `RefLabelSettings`
-- `RefMaterial`
-- `RefStyleBox`
+### Resource Types - [`RefResource`](bindora/ref/ref_resource.gd)
+[`RefFont`](bindora/ref/ref_resource/ref_font.gd), [`RefLabelSettings`](bindora/ref/ref_resource/ref_label_settings.gd), [`RefMaterial`](bindora/ref/ref_resource/ref_material.gd), [`RefStyleBox`](bindora/ref/ref_resource/ref_style_box.gd)
 
 ## Contributing
 
