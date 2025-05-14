@@ -8,5 +8,5 @@ func get_value() -> Color:
 
 func _init(_value:=Color()) -> void:
 	type = TYPE_COLOR
-	super(_value)
+	super (_value)
 	pass

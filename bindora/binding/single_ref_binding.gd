@@ -4,7 +4,7 @@ var ref: Ref
 
 
 func _init(_node: CanvasItem, _ref: Ref) -> void:
-	super(_node)
+	super (_node)
 	ref = _ref
 	ref.add_binding(self)
 	pass

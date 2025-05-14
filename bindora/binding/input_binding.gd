@@ -16,7 +16,7 @@ var signal_type: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _property: String = "") -> void:
-	super(_node, _ref)
+	super (_node, _ref)
 	property = _property
 
 	# Detect and connect appropriate signal

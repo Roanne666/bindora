@@ -11,7 +11,7 @@ var value: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
-	super(_node, _ref)
+	super (_node, _ref)
 	value = _value
 	if "toggled" in _node:
 		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: ref.value=value)

@@ -1,10 +1,11 @@
 class_name Bindora extends RefCounted
+## A utility class for serializing and deserializing [ReactiveResource].
 
 const FLAGS = PROPERTY_USAGE_SCRIPT_VARIABLE
 
 
-## Deserializes a dictionary into a corresponding resource.
-static func reactive(_dict: Dictionary, _class) -> Resource:
+## Deserializes a [Dictionary] into a [ReactiveResource].
+static func reactive(_dict: Dictionary, _class) -> ReactiveResource:
 	var obj = _class.new()
 	for prop in obj.get_property_list():
 		if prop.usage & FLAGS > 0:
@@ -17,7 +18,7 @@ static func reactive(_dict: Dictionary, _class) -> Resource:
 	return obj
 
 
-## Serialize a resource into a dictionary.
+## Serialize a [ReactiveResource] into a [Dictionary].
 static func serialize(_obj: Resource) -> Dictionary:
 	var dict := {}
 	for prop in _obj.get_property_list():

@@ -9,7 +9,7 @@ var refs: Array[Ref]
 
 
 func _init(_node: CanvasItem, _refs: Array[Ref]) -> void:
-	super(_node)
+	super (_node)
 	refs = _refs
 	for r in refs:
 		r.add_binding(self)

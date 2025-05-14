@@ -14,5 +14,5 @@ func get_value() -> Material:
 func _init(_value: Material = null) -> void:
 	type = TYPE_OBJECT
 	resource_type = "Material"
-	super(_value)
+	super (_value)
 	pass

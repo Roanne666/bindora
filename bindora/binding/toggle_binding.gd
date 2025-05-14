@@ -10,7 +10,7 @@ var opposite: bool
 
 
 func _init(_node: CanvasItem, _ref: RefBool, _opposite: bool = false) -> void:
-	super(_node, _ref)
+	super (_node, _ref)
 	opposite = _opposite
 	if "toggled" in node:
 		node.toggled.connect(func(toggled_state: bool): _on_toggled(toggled_state))

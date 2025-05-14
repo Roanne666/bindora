@@ -89,14 +89,12 @@ func get_value() -> Variant:
 	return value
 
 
-## Initializes the reference with optional initial value
 func _init(_value=null) -> void:
 	if _value != null:
 		value = _value
 	pass
 
 
-## Generates property list for editor integration
 func _get_property_list() -> Array[Dictionary]:
 	return [ {"name": "value", "type": type, "usage": PROPERTY_USAGE_DEFAULT}]
 

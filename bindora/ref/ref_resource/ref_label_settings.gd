@@ -14,5 +14,5 @@ func get_value() -> LabelSettings:
 func _init(_value: LabelSettings = null) -> void:
 	type = TYPE_OBJECT
 	resource_type = "LabelSettings"
-	super(_value)
+	super (_value)
 	pass

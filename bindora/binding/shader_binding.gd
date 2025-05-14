@@ -8,7 +8,7 @@ class_name ShaderBinding extends DictRefBinding
 
 
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
-	super(_node, _refs)
+	super (_node, _refs)
 	if "material" in node:
 		update("")
 	else:

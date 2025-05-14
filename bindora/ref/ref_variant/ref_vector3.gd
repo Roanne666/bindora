@@ -13,5 +13,5 @@ func get_value() -> Vector3:
 
 func _init(_value:=Vector3()) -> void:
 	type = TYPE_VECTOR3
-	super(_value)
+	super (_value)
 	pass

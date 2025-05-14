@@ -10,7 +10,7 @@ var callable: Callable
 
 
 func _init(_node: CanvasItem, _refs: Array[Ref], _callable: Callable) -> void:
-	super(_node, _refs)
+	super (_node, _refs)
 	callable = _callable
 	pass
 

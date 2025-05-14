@@ -19,7 +19,7 @@ var callable: Callable
 func _init(
 	_node: CanvasItem, _ref: RefArray, _packed_scene: PackedScene, _callable: Callable
 ) -> void:
-	super(_node, _ref)
+	super (_node, _ref)
 	packed_scene = _packed_scene
 	callable = _callable
 	pass

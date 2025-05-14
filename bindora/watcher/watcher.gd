@@ -5,7 +5,6 @@ class_name Watcher extends RefCounted
 var callable: Callable
 
 
-## Initializes the watcher with a callback
 func _init(_arg: Variant, _callable: Callable) -> void:
 	callable = _callable
 	pass

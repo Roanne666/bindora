@@ -9,7 +9,7 @@ var refs: Dictionary[String, Ref]
 
 
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
-		super(_node)
+		super (_node)
 		refs = _refs
 		for k in refs:
 				refs[k].add_binding(self)

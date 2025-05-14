@@ -1,5 +1,6 @@
 @tool
 class_name ReactiveResource extends Resource
+## A resource that can be serialized and deserialized.
 
 var __refs__: Dictionary[String, Variant.Type] = {}
 
@@ -33,7 +34,7 @@ func _get(property: StringName) -> Variant:
 			return ref.value
 	return null
 
-## Serialize a resource into a dictionary.
+## Serialize self into a dictionary.
 func to_dictionary() -> Dictionary:
 	var dict := {}
 	for prop in get_property_list():
@@ -46,6 +47,7 @@ func to_dictionary() -> Dictionary:
 			dict[prop.name] = value
 	return dict
 
+## Update self from a dictionary.
 func from_dictionary(_dict: Dictionary) -> void:
 	for prop in get_property_list():
 		if prop["usage"] & Bindora.FLAGS > 0:

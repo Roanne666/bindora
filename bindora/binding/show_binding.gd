@@ -9,7 +9,7 @@ var callable: Callable
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _callable: Callable) -> void:
-	super(_node, _ref)
+	super (_node, _ref)
 	callable = _callable
 	update(ref.value)
 	pass

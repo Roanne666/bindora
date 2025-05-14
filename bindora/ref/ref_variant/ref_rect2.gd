@@ -13,5 +13,5 @@ func get_value() -> Rect2:
 
 func _init(_value:=Rect2()) -> void:
 	type = TYPE_RECT2
-	super(_value)
+	super (_value)
 	pass

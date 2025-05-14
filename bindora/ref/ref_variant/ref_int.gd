@@ -13,5 +13,5 @@ func get_value() -> int:
 
 func _init(_value:=int()) -> void:
 	type = TYPE_INT
-	super(_value)
+	super (_value)
 	pass

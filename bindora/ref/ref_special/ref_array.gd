@@ -6,7 +6,7 @@ var force_refresh: bool = false
 var _diff := -1
 
 
-func set_value(_value:Array)->void:
+func set_value(_value: Array) -> void:
 	value = _value
 	pass
 
@@ -17,7 +17,7 @@ func get_value() -> Array[Ref]:
 
 func _init(_value:=Array()) -> void:
 	type = TYPE_ARRAY
-	super(_value)
+	super (_value)
 	pass
 
 

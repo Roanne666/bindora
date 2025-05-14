@@ -3,7 +3,7 @@ class_name RefDictionary extends Ref
 ## Dictionary reference class
 ##
 ## Note: Using dictionary reference class won't provide code completion or type checking.
-## In principle, it's recommended to use custom classes containing [Ref] variables instead.
+## In principle, it's recommended to use [ReactiveResource] instead.
 
 
 func set_value(_value: Dictionary) -> void:
@@ -17,7 +17,7 @@ func get_value() -> Dictionary:
 
 func _init(init_value:=Dictionary()) -> void:
 	type = TYPE_DICTIONARY
-	super(init_value)
+	super (init_value)
 	pass
 
 
