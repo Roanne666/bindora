@@ -117,7 +117,7 @@ Try to avoid using `.value` to manipulate values, as it lacks type checking in t
 #### Binding Management
 `Binding` automatically detects whether nodes exist and cleans up accordingly, requiring no manual cleanup. However, `Watcher` is node-independent and needs manual judgment and cleanup.
 
-#### When to Choose ReactiveResource
+#### When to Use `ReactiveResource`
 For most cases, using `Ref` directly is sufficient, but in some situations, using `ReactiveResource` performs better. Here are some examples:
 1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). `ReactiveResource` 's automatic export feature can avoid this situation.
 2. For content that needs serialization and deserialization, `ReactiveResource` can be transformed directly using built-in functions without additional operations.

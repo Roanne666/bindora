@@ -114,7 +114,7 @@ print(new_resource.text_ref.value) # Hello World
 #### 绑定管理
 `Binding` 会自动识别节点是否存在并清理，无需手动清理。而 `Watcher` 是不依赖于节点的，需要手动判断并清理。
 
-#### 什么时候选择 `ReactiveResource`
+#### 什么时候使用 `ReactiveResource`
 对于大多数情况，直接使用 `Ref` 都能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好，以下为几个例子：
 1. 在使用 `@export` 导出属性时，大量的 `Ref` 会使检查器变得复杂且不直观（因为导出的属性会包装一层），而 `ReactiveResource` 的自动导出功能可以避免这种情况。
 2. 对于需要序列化和反序列化的内容，`ReactiveResource` 可以使用自带函数直接转化，不需要额外操作。
