@@ -100,6 +100,9 @@ var new_resource = ReactiveResource.reactive(dict,MyResource)
 print(new_resource.text_ref.value) # Hello World
 ```
 
+### 更多使用方法
+参考[`test`](test)文件夹中的例子
+
 ### 最佳实践
 
 #### 类型选择
