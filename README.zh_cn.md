@@ -35,7 +35,7 @@ Bindora 是一个用于 Godot 4.x 的响应式数据绑定库。它基于 Godot 
 
 ### 安装 Bindora
 
-将 `addons/bindora` 文件夹复制到你的 Godot 项目中。
+将 `bindora` 文件夹复制到你的 Godot 项目中。
 
 ### 基础用法
 创建一个 `Label` 节点，并将 `Label` 节点的 `text` 修改为 `"Text is {{value}}"`。然后为节点添加一个脚本，代码如下：

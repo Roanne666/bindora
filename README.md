@@ -35,7 +35,7 @@ Bindora is a reactive data binding library for Godot 4.x. Based on Godot's desig
 
 ### Installing Bindora
 
-Copy the `addons/bindora` folder into your Godot project.
+Copy the `bindora` folder into your Godot project.
 
 ### Basic Usage
 Create a `Label` node and set its `text` to `"Text is {{value}}"`. Then add a script to the node with the following code:
