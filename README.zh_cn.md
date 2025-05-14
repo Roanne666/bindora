@@ -42,10 +42,8 @@ Bindora 是一个用于 Godot 4.x 的响应式数据绑定库。它基于 Godot 
 ```gdscript
 extends Label
 
-# 声明数据
+# 声明数据并创建文本绑定
 var text_ref = RefString.new("Hello World")
-
-# 创建文本绑定
 text_ref.bind_text(self)
 
 # 创建观察者
@@ -53,7 +51,6 @@ text_ref.create_watcher(func(watcher,new_value):
     print("Text changed to: ", new_value)
 )
 
-# 等待一段时间
 await get_tree().create_timer(3.0).timeout
 
 # 修改数据
@@ -84,6 +81,40 @@ for i in 3:
     new_item.text_ref.set_value("Item " + i)
     array.append(new_item)
 ```
+
+`ReactiveResource` 类中提供了序列化和反序列化的功能，你可以使用 `to_dictionary` 将其转换为字典，或者使用 `from_dictionary` 从字典更新值。
+```gdscript
+var resource = MyResource.new()
+var dict = resource.to_dictionary()
+dict["text_ref"] = "New Text"
+resource.from_dictionary(dict)
+print(resource.text_ref.value) # New Text
+```
+
+`ReactiveResource` 类也提供了静态的序列化和反序列化方法，用法如下：
+```gdscript
+var resource = MyResource.new()
+resource.text_ref.set_value("Hello World")
+var dict = ReactiveResource.serialize(resource)
+var new_resource = ReactiveResource.reactive(dict,MyResource)
+print(new_resource.text_ref.value) # Hello World
+```
+
+### 最佳实践
+
+#### 类型选择
+为数据选择合适的 `Ref` 类型，如 `RefString`、`RefInt` 等，避免直接使用 `Ref` 或其他基类来创建变量。
+
+#### 修改和获取值
+尽量避免使用 `.value` 来操作值，它在编辑器中是没有类型检查的，可能在运行中才会报错。而使用 `set_value()` 和 `get_value()` 函数则会在编辑器阶段就进行类型检查。
+
+#### 绑定管理
+`Binding` 会自动识别节点是否存在并清理，无需手动清理。而 `Watcher` 是不依赖于节点的，需要手动判断并清理。
+
+#### 什么时候选择 `ReactiveResource`
+对于大多数情况，直接使用 `Ref` 都能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好，以下为几个例子：
+1. 在使用 `@export` 导出属性时，大量的 `Ref` 会使检查器变得复杂且不直观（因为导出的属性会包装一层），而 `ReactiveResource` 的自动导出功能可以避免这种情况。
+2. 对于需要序列化和反序列化的内容，`ReactiveResource` 可以使用自带函数直接转化，不需要额外操作。
 
 ## API 参考
 

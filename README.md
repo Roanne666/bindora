@@ -85,6 +85,40 @@ for i in 3:
     array.append(new_item)
 ```
 
+The `ReactiveResource` class provides serialization and deserialization functionality. You can use `to_dictionary` to convert it to a dictionary, or use `from_dictionary` to update values from a dictionary.
+```gdscript
+var resource = MyResource.new()
+var dict = resource.to_dictionary()
+dict["text_ref"] = "New Text"
+resource.from_dictionary(dict)
+print(resource.text_ref.value) # New Text
+```
+
+The `ReactiveResource` class also provides static serialization and deserialization methods, which can be used as follows:
+```gdscript
+var resource = MyResource.new()
+resource.text_ref.set_value("Hello World")
+var dict = ReactiveResource.serialize(resource)
+var new_resource = ReactiveResource.reactive(dict,MyResource)
+print(new_resource.text_ref.value) # Hello World
+```
+
+### Best Practices 
+
+#### Type Selection
+Choose appropriate `Ref` types for your data, such as `RefString` , `RefInt` , etc. Avoid directly using `Ref` or other base classes to create variables.
+
+#### Modifying and Getting Values
+Try to avoid using `.value` to manipulate values, as it lacks type checking in the editor and may only report errors during runtime. Instead, use `set_value()` and `get_value()` functions which perform type checking at the editor stage.
+
+#### Binding Management
+`Binding` automatically detects whether nodes exist and cleans up accordingly, requiring no manual cleanup. However, `Watcher` is node-independent and needs manual judgment and cleanup.
+
+#### When to Choose ReactiveResource
+For most cases, using `Ref` directly is sufficient, but in some situations, using `ReactiveResource` performs better. Here are some examples:
+1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). `ReactiveResource` 's automatic export feature can avoid this situation.
+2. For content that needs serialization and deserialization, `ReactiveResource` can be transformed directly using built-in functions without additional operations.
+
 ## API Reference
 
 ### Basic Variable Types - [`RefVariant`](bindora/ref/ref_variant.gd)
