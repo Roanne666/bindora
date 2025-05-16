@@ -45,9 +45,9 @@ func _set_value(_new_value: Variant) -> void:
 			return
 		elif _new_value == value:
 			return
-	var fixed_new_value = _new_value
 
 	# convert
+	var fixed_new_value = _new_value
 	if type == TYPE_DICTIONARY:
 		var ref_dict: Dictionary[String, Ref] = {}
 		for k in _new_value:
