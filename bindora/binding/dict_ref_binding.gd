@@ -16,6 +16,13 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
 		pass
 
 
+func add_ref(_property:String,_ref:Ref)->void:
+	refs.set(_property,_ref)
+	_ref.add_binding(self)
+	update(null)
+	pass
+
+
 func destroy() -> void:
 		for k in refs:
 				refs[k].remove_binding(self)
