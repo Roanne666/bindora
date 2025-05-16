@@ -11,11 +11,11 @@ var callable: Callable
 func _init(_node: CanvasItem, _ref: RefVariant, _callable: Callable) -> void:
 	super (_node, _ref)
 	callable = _callable
-	update(ref.value)
+	_update(null, ref.value)
 	pass
 
 
-func update(_value: Variant) -> void:
-	var should_show = callable.call(_value)
+func _update(_old_value, _new_value) -> void:
+	var should_show = callable.call(_new_value)
 	node.set_visible(should_show)
 	pass

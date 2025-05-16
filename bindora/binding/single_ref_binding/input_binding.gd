@@ -32,50 +32,44 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String = "") -> void:
 	else:
 		push_error("Node doesn't have signal 'text_changed' or 'value_changed'")
 
-	update(ref.value)
+	_update(null, ref.value)
 	pass
 
 
 ## Handles text input changes
 func _on_text_changed() -> void:
 	if property:
-		# Update object property if different
 		if ref.value[property] != node.text:
 			ref.value[property] = node.text
-
-		# Update direct value if different
 	else:
-		# Update direct value if different
-		if ref.value != node.text:
-			ref.value = node.text
+		if ref.get_value() != node.text:
+			ref.set_value(node.text)
 	pass
 
 
 ## Handles numeric/color value changes
 func _on_value_changed(_value) -> void:
 	if property:
-		# Update object property
 		ref.value[property] = _value
 	else:
-		# Update direct value
-		ref.value = _value
+		ref.set_value(_value)
 	pass
 
 
-func update(_value) -> void:
+func _update(_old_value, _new_value) -> void:
 	# Handle property binding if specified
 	if property != "":
-		_value = _value[property]
+		_new_value = _new_value[property]
 
 	# Update control based on signal type
 	match signal_type:
 		"text_changed":
-			if node["text"] != str(_value):
-				node.text = str(_value)
+			if node["text"] != str(_new_value):
+				node.set("text", str(_new_value))
 		"value_changed":
-			if node["value"] != _value:
-				node.set_value_no_signal(_value)
+			if node["value"] != _new_value:
+				node.set_value_no_signal(_new_value)
 		"color_changed":
-			if node["color"] != _value:
-				node["color"] = _value
+			if node["color"] != _new_value:
+				node.set("color", _new_value)
 	pass

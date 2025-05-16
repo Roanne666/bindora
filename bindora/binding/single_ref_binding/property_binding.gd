@@ -17,11 +17,11 @@ func _init(
 	if _use_node_data:
 		ref.value = node.get(property)
 	else:
-		update(ref.value)
+		_update(null, ref.value)
 	pass
 
 
-func update(_value: Variant) -> void:
-	if node.get(property) != _value:
-		node.set(property, _value)
+func _update(_old_value, _new_value) -> void:
+	if node.get(property) != _new_value:
+		node.set(property, _new_value)
 	pass

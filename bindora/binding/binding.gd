@@ -14,8 +14,19 @@ func _init(_node: CanvasItem) -> void:
 	pass
 
 
+func _create_connect_callable() -> Callable:
+	return func(_old_value, _new_value): _on_ref_value_changed(_old_value, _new_value)
+
+
+func _on_ref_value_changed(_old_value, _new_value) -> void:
+	if node == null:
+		destroy()
+	else:
+		_update(_old_value, _new_value)
+
+
 ## Updates the binding with a new value
-func update(_new_value) -> void:
+func _update(_old_value, _new_value) -> void:
 	pass
 
 

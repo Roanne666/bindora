@@ -15,6 +15,6 @@ func _init(_node: CanvasItem, _refs: Array[Ref], _callable: Callable) -> void:
 	pass
 
 
-func update(_value: Variant) -> void:
+func _update(_old_value, _new_value) -> void:
 	callable.call(node, refs)
 	pass

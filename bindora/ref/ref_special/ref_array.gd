@@ -2,20 +2,17 @@
 class_name RefArray extends Ref
 ## Array reference class, overrides most built-in array functions
 
-var force_refresh: bool = false
-var _diff := -1
-
 
 func set_value(_value: Array) -> void:
 	value = _value
 	pass
 
 
-func get_value() -> Array[Ref]:
+func get_value() -> Array:
 	return value
 
 
-func _init(_value:=Array()) -> void:
+func _init(_value: Array = []) -> void:
 	type = TYPE_ARRAY
 	super (_value)
 	pass
@@ -50,40 +47,37 @@ func bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -
 
 #endregion
 
-func _insert_data(_position: int, _value: Variant) -> void:
-	value.insert(_position, _value)
-	if not force_refresh:
-		_diff = _position
-	_update()
+func _insert_data(_position: int, _value) -> void:
+	get_value().insert(_position, _value)
+	value_updated.emit(_position, null)
 	pass
 
 
 func _remove_data(_position: int) -> Variant:
 	var data = value.pop_at(_position)
-	if not force_refresh:
-		_diff = _position
-	_update()
+	value_updated.emit(_position, null)
 	return data
 
 
 #region Rewrite array function
-func append(_value: Variant) -> void:
+func append(_value) -> void:
+	_insert_data(get_value().size(), _value)
+	pass
+
+
+func erase(_value) -> void:
+	var position = value.find(_value)
+	if position > -1:
+		_remove_data(position)
+	pass
+
+
+func push_back(_value) -> void:
 	_insert_data(value.size(), _value)
 	pass
 
 
-func erase(_value: Variant) -> void:
-	value.erase(_value)
-	_update()
-	pass
-
-
-func push_back(_value: Variant) -> void:
-	_insert_data(value.size(), _value)
-	pass
-
-
-func push_front(_value: Variant) -> void:
+func push_front(_value) -> void:
 	_insert_data(0, _value)
 	pass
 
@@ -96,7 +90,7 @@ func pop_front() -> Variant:
 	return _remove_data(0)
 
 
-func insert(_position: int, _value: Variant) -> void:
+func insert(_position: int, _value) -> void:
 	_insert_data(_position, _value)
 	pass
 
@@ -108,25 +102,25 @@ func remove_at(_position: int) -> void:
 
 func reverse() -> void:
 	value.reverse()
-	_update()
+	value_updated.emit(-1, value)
 	pass
 
 
 func sort() -> void:
 	value.sort()
-	_update()
+	value_updated.emit(-1, value)
 	pass
 
 
 func sort_custom(_callable: Callable) -> void:
 	value.sort_custom(_callable)
-	_update()
+	value_updated.emit(-1, value)
 	pass
 
 
 func shuffle() -> void:
 	value.shuffle()
-	_update()
+	value_updated.emit(-1, value)
 	pass
 
 
@@ -135,42 +129,6 @@ func size() -> int:
 
 
 #endregion
-
-
-## Internal method to update all bindings and watchers
-func _update() -> void:
-	# Remove invalid bindings.
-	var unuse_list: Array[int] = []
-	for i in bindings.size():
-		var binding := bindings[i]
-		if binding.node == null:
-			unuse_list.append(i)
-	if unuse_list.size() > 0:
-		unuse_list.reverse()
-		for i in unuse_list:
-			bindings.remove_at(i)
-
-	# Update watchers.
-	for w in watchers:
-		w.update()
-
-	# Update bindings.
-	for b in bindings:
-		if b is ListBinding:
-			b.update(_diff)
-		else:
-			b.update(value)
-
-	# Update children ref's bindings.
-	for d in value:
-		if d is Ref:
-			d.update()
-		elif d is Object:
-			_update_object(d)
-
-	# Reset diff.
-	_diff = -1
-	pass
 
 
 ## Internal method to recursively update object properties

@@ -38,10 +38,10 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
 		push_error("%s is not a valid theme override property" % _property)
 		return
 	property = _property
-	update(ref.value)
+	_update(null, ref.value)
 	pass
 
 
-func update(_new_value: Variant) -> void:
+func _update(_old_value, _new_value) -> void:
 	node.call(method, property, _new_value)
 	pass

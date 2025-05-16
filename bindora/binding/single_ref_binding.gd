@@ -1,18 +1,18 @@
 class_name SingleRefBinding extends Binding
 
 var ref: Ref
-
+var __callable__ := _create_connect_callable()
 
 func _init(_node: CanvasItem, _ref: Ref) -> void:
 	super (_node)
 	ref = _ref
-	ref.add_binding(self)
+	ref.value_updated.connect(__callable__)
 	pass
 
 
 func destroy() -> void:
 	if ref == null:
 		return
-	ref.remove_binding(self)
+	ref.value_updated.disconnect(__callable__)
 	ref = null
 	pass

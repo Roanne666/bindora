@@ -25,7 +25,7 @@ func _init(
 	pass
 
 
-func update(_diff: int) -> void:
+func _update(_diff: int, _arg) -> void:
 	# Handle incremental updates if we know the changed index
 	if typeof(_diff) == TYPE_INT and _diff > -1:
 		if ref.size() > node.get_child_count():

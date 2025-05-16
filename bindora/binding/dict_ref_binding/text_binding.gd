@@ -12,22 +12,25 @@ var template: String
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String = "") -> void:
 	super (_node, _refs)
 	if "text" in node:
-			# Use existing text as template if none provided
-			template = node.get("text") if _template.is_empty() else _template
+		# Use existing text as template if none provided
+		template = node.get("text") if _template.is_empty() else _template
 	else:
-			push_error("Node missing required 'text' property")
-	update("")
+		push_error("Node missing required 'text' property")
+	_update(null, null)
 	pass
 
 
-func update(_value: Variant) -> void:
+func _update(_old_value, _new_value) -> void:
+	if node == null:
+		destroy()
+		return
+
 	var output_text = template
 
 	# Replace all template placeholders with current values
 	for placeholder in refs:
-			output_text = output_text.replacen("{{%s}}" % placeholder, str(refs[placeholder].value))
+		output_text = output_text.replacen("{{%s}}" % placeholder, str(refs[placeholder].value))
 
 	# Only update if text actually changed
 	if node.text != output_text:
-			node.text = output_text
-	pass
+		node.text = output_text

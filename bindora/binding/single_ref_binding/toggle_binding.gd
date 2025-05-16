@@ -16,7 +16,7 @@ func _init(_node: CanvasItem, _ref: RefBool, _opposite: bool = false) -> void:
 		node.toggled.connect(func(toggled_state: bool): _on_toggled(toggled_state))
 	else:
 		push_error("Node missing required 'toggled' signal")
-	update(ref.value)
+	_update(null, ref.value)
 	pass
 
 
@@ -27,8 +27,8 @@ func _on_toggled(toggled_state: bool) -> void:
 	pass
 
 
-func update(new_value: Variant) -> void:
-	var node_state = not new_value if opposite else new_value
+func _update(_old_value, _new_value) -> void:
+	var node_state = not _new_value if opposite else _new_value
 	if node["button_pressed"] != node_state:
 		node["button_pressed"] = node_state
 	pass

@@ -10,8 +10,12 @@ func _init(_arg: Variant, _callable: Callable) -> void:
 	pass
 
 
+func _create_connect_callable() -> Callable:
+	return func(_old_value, _new_value): _update(_old_value, _new_value)
+
+
 ## Triggers the watcher's callback
-func update() -> void:
+func _update(_old_value, _new_value) -> void:
 	callable.call(self)
 	pass
 

@@ -14,11 +14,11 @@ func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
 	super (_node, _ref)
 	value = _value
 	if "toggled" in _node:
-		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: ref.value=value)
-	update(ref.value)
+		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: ref.value = value)
+	_update(null, ref.value)
 	pass
 
 
-func update(_new_value: String) -> void:
+func _update(_old_value, _new_value) -> void:
 	node.set_pressed_no_signal(value == _new_value)
 	pass
