@@ -16,12 +16,22 @@ func _init(_node: CanvasItem, _refs: Array[Ref]) -> void:
 	pass
 
 
-func add_ref(_ref:Ref)->void:
-	refs.append(_ref)
+func add_ref(_ref: Ref) -> void:
+	if refs.has(_ref):
+		return
 	_ref.add_binding(self)
+	refs.append(_ref)
 	update(null)
 	pass
 
+
+func remove_ref(_ref: Ref) -> void:
+	if not refs.has(_ref):
+		return
+	_ref.remove_binding(self)
+	refs.erase(_ref)
+	update(null)
+	pass
 
 func destroy() -> void:
 	for ref in refs:
