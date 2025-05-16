@@ -12,7 +12,7 @@ func _init(_arg: Variant, _callable: Callable) -> void:
 
 ## Triggers the watcher's callback
 func update() -> void:
-	callable.call()
+	callable.call(self)
 	pass
 
 

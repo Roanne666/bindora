@@ -29,7 +29,7 @@ func remove_ref(_ref: Ref) -> void:
 
 func update() -> void:
 	var refs_values = refs.map(func(ref: Ref): return ref.value)
-	callable.call(refs_values)
+	callable.call(self, refs_values)
 	pass
 
 
