@@ -27,10 +27,10 @@ var on_destroyed: Callable
 #endregion
 
 ## Array of active bindings
-var _bindings: Array[Binding] = []
+var bindings: Array[Binding] = []
 
 ## Array of active watchers
-var _watchers: Array[Watcher] = []
+var watchers: Array[Watcher] = []
 
 
 ## Sets the value with type checking and conversion
@@ -106,25 +106,25 @@ func bind_custom(_node: CanvasItem, _callable: Callable) -> CustomBinding:
 
 ## Adds a binding to this reference
 func add_binding(_binding: Binding) -> void:
-	_bindings.append(_binding)
+	bindings.append(_binding)
 	pass
 
 
 ## Adds multiple bindings to this reference
 func add_bindings(_bindings: Array[Binding]) -> void:
-	_bindings.append_array(_bindings)
+	bindings.append_array(_bindings)
 	pass
 
 
 ## Removes a binding from this reference
 func remove_binding(_binding: Binding) -> void:
-	_bindings.erase(_bindings)
+	bindings.erase(_binding)
 	pass
 
 
 ## Removes all bindings from this reference
 func remove_all_bindings() -> void:
-	_bindings.clear()
+	bindings.clear()
 	pass
 
 
@@ -135,50 +135,47 @@ func create_watcher(_callable: Callable) -> SingleWatcher:
 
 ## Adds a watcher to this reference
 func add_watcher(_watcher: Watcher) -> void:
-	_watchers.append(_watcher)
+	watchers.append(_watcher)
 	pass
 
 
 ## Adds multiple watchers to this reference
 func add_watchers(_watchers: Array[Watcher]) -> void:
-	_watchers.append_array(_watchers)
+	watchers.append_array(_watchers)
 	pass
 
 
 ## Removes a watcher from this reference
 func remove_watcher(_watcher: Watcher) -> void:
-	_watchers.erase(_watcher)
+	watchers.erase(_watcher)
 	pass
 
 
 ## Removes all watchers from this reference
 func remove_all_watchers() -> void:
-	_watchers.clear()
+	watchers.clear()
 	pass
 
 
-## Internal method to update all bindings and watchers
+## Internal method to update all _bindings and _watchers
 func _update() -> void:
 	if before_update:
 		before_update.call(value)
 
-	# Remove invalid bindings.
-	var unuse_list: Array[int] = []
-	for i in _bindings.size():
-		var binding := _bindings[i]
-		if binding.node == null:
-			unuse_list.append(i)
-	if unuse_list.size() > 0:
-		unuse_list.reverse()
-		for i in unuse_list:
-			_bindings.remove_at(i)
+	# Remove invalid _bindings.
+	for b in bindings:
+		if b == null:
+			bindings.erase(b)
+		elif b.node == null:
+			bindings.erase(b)
+			b.destroy()
 
 	# Update watchers.
-	for w in _watchers:
+	for w in watchers:
 		w.update()
 
 	# Update bindings.
-	for b in _bindings:
+	for b in bindings:
 		b.update(value)
 
 	if on_updated:
@@ -190,9 +187,9 @@ func destroy() -> void:
 	if before_destroy:
 		before_destroy.call(value)
 
-	for w in _watchers:
+	for w in watchers:
 		w.destroy()
-	for b in _bindings:
+	for b in bindings:
 		b.destroy()
 
 	if on_destroyed:
