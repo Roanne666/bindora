@@ -141,21 +141,21 @@ func size() -> int:
 func _update() -> void:
 	# Remove invalid bindings.
 	var unuse_list: Array[int] = []
-	for i in _bindings.size():
-		var binding := _bindings[i]
+	for i in bindings.size():
+		var binding := bindings[i]
 		if binding.node == null:
 			unuse_list.append(i)
 	if unuse_list.size() > 0:
 		unuse_list.reverse()
 		for i in unuse_list:
-			_bindings.remove_at(i)
+			bindings.remove_at(i)
 
 	# Update watchers.
-	for w in _watchers:
+	for w in watchers:
 		w.update()
 
 	# Update bindings.
-	for b in _bindings:
+	for b in bindings:
 		if b is ListBinding:
 			b.update(_diff)
 		else:
