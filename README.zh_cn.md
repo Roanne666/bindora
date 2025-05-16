@@ -14,17 +14,7 @@ Bindora 是一个用于 Godot 4.x 的响应式数据绑定库。它基于 Godot 
 - 提供生命周期钩子
   
 ### 丰富的绑定支持
-- 文本绑定 - [`TextBinding`](bindora/binding/text_binding.gd)
-- 输入框绑定 - [`InputBinding`](bindora/binding/input_binding.gd)
-- 单选框绑定 - [`RadioBinding`](bindora/binding/radio_binding.gd)
-- 复选框绑定 - [`CheckBoxBinding`](bindora/binding/check_box_binding.gd)
-- 属性绑定 - [`PropertyBinding`](bindora/binding/property_binding.gd)
-- 显示绑定 - [`ShowBinding`](bindora/binding/show_binding.gd)
-- 着色器绑定 - [`ShaderBinding`](bindora/binding/shader_binding.gd)
-- 切换绑定 - [`ToggleBinding`](bindora/binding/toggle_binding.gd)
-- 列表绑定 - [`ListBinding`](bindora/binding/list_binding.gd)
-- 主题覆盖绑定 - [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd)
-- 自定义绑定器 - [`CustomBinding`](bindora/binding/custom_binding.gd)
+[`文本绑定`](bindora/binding/text_binding.gd)、[`输入绑定`](bindora/binding/input_binding.gd)、[`单选框绑定`](bindora/binding/radio_binding.gd)、[`复选框绑定`](bindora/binding/check_box_binding.gd)、[`属性绑定`](bindora/binding/property_binding.gd)、[`显示绑定`](bindora/binding/show_binding.gd)、[`着色器绑定`](bindora/binding/shader_binding.gd)、[`切换绑定`](bindora/binding/toggle_binding.gd)、[`列表绑定`](bindora/binding/list_binding.gd)、[`主题覆盖绑定`](bindora/binding/theme_override_binding.gd)、[`自定义绑定器`](bindora/binding/custom_binding.gd)
   
 ### 数据监控
 - 提供 [`Watcher`](bindora/watcher/watcher.gd) 类进行数据监控

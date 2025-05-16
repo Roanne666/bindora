@@ -14,17 +14,7 @@ Bindora is a reactive data binding library for Godot 4.x. Based on Godot's desig
 - Provides lifecycle hooks
 
 ### Comprehensive Binding Support
-- Text binding - [`TextBinding`](bindora/binding/text_binding.gd)
-- Input binding - [`InputBinding`](bindora/binding/input_binding.gd)
-- Radio button binding - [`RadioBinding`](bindora/binding/radio_binding.gd)
-- Checkbox binding - [`CheckBoxBinding`](bindora/binding/check_box_binding.gd)
-- Property binding - [`PropertyBinding`](bindora/binding/property_binding.gd)
-- Display binding - [`ShowBinding`](bindora/binding/show_binding.gd)
-- Shader binding - [`ShaderBinding`](bindora/binding/shader_binding.gd)
-- Toggle binding - [`ToggleBinding`](bindora/binding/toggle_binding.gd)
-- List binding - [`ListBinding`](bindora/binding/list_binding.gd)
-- Theme override binding - [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd)
-- Custom binding - [`CustomBinding`](bindora/binding/custom_binding.gd)
+[`TextBinding`](bindora/binding/text_binding.gd), [`InputBinding`](bindora/binding/input_binding.gd), [`RadioBinding`](bindora/binding/radio_binding.gd), [`CheckBoxBinding`](bindora/binding/check_box_binding.gd), [`PropertyBinding`](bindora/binding/property_binding.gd), [`ShowBinding`](bindora/binding/show_binding.gd), [`ShaderBinding`](bindora/binding/shader_binding.gd), [`ToggleBinding`](bindora/binding/toggle_binding.gd), [`ListBinding`](bindora/binding/list_binding.gd), [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd), [`CustomBinding`](bindora/binding/custom_binding.gd)
 
 ### Data Monitoring
 - Provides the [`Watcher`](bindora/watcher/watcher.gd) class for data monitoring
