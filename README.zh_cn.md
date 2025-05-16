@@ -1,6 +1,6 @@
 # Bindora
 
-[English](README.md)/[中文](README.zh_cn.md)
+[English](README.md) | 简体中文
 
 Bindora 是一个用于 Godot 4.x 的响应式数据绑定库。它基于 Godot 的设计理念，提供了一种声明式和组件化的方式，帮助你处理节点和数据之间的关系。
 
