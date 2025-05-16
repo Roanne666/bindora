@@ -53,6 +53,21 @@ text_ref.set_value("New Text") # Using set_value is recommended as it includes t
 ```
 The `Ref` class provides many convenient binding methods, which you can explore in the [API Reference](#api-reference).
 
+### Using `Binding` and `Watcher`  
+When you need more complex data binding, you can directly use `Binding` and `Watcher`.
+
+```gdscript
+extends Label
+
+var text_ref = RefString.new("Hello")
+var text_ref2 = RefString.new("World")
+var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
+
+var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
+    print("Text changed to: %s %s" % [new_values[0], new_values[1]])
+)
+```
+
 ### Using ReactiveResource
 Create a resource class that extends `ReactiveResource` and declare `Ref` variables within it.
 > **Note**: `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.

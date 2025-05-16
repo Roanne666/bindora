@@ -41,14 +41,27 @@ text_ref.create_watcher(func(watcher,new_value):
     print("Text changed to: ", new_value)
 )
 
-await get_tree().create_timer(3.0).timeout
-
 # 修改数据
 text_ref.value = "New Text"
 # 或者
 text_ref.set_value("New Text") # 推荐使用 set_value 方法，因为它会检查类型
 ```
 `Ref` 类中提供了非常多的快捷绑定方法，你可以在 [API 参考](#api-参考)中查看
+
+### 使用 `Binding` 和 `Watcher`
+当你需要更复杂的数据绑定时，可以直接使用 `Binding` 和 `Watcher` 。
+
+```gdscript
+extends Label
+
+var text_ref = RefString.new("Hello")
+var text_ref2 = RefString.new("World")
+var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
+
+var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
+    print("Text changed to: %s %s" % [new_values[0], new_values[1]])
+)
+```
 
 ### 使用 ReactiveResource
 创建一个资源类，继承 `ReactiveResource`，然后在其中声明 `Ref` 变量。
