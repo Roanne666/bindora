@@ -96,18 +96,18 @@ print(new_resource.text_ref.value) # Hello World
 ### More Usage Examples  
 Refer to the examples in the [`test`](test) folder.
 
-### Best Practices 
+## Best Practices 
 
-#### Type Selection
+### Type Selection
 Choose appropriate `Ref` types for your data, such as `RefString` , `RefInt` , etc. Avoid directly using `Ref` or other base classes to create variables.
 
-#### Modifying and Getting Values
+### Modifying and Getting Values
 Try to avoid using `.value` to manipulate values, as it lacks type checking in the editor and may only report errors during runtime. Instead, use `set_value()` and `get_value()` functions which perform type checking at the editor stage.
 
-#### Binding Management
+### Binding Management
 `Binding` automatically detects whether nodes exist and cleans up accordingly, requiring no manual cleanup. However, `Watcher` is node-independent and needs manual judgment and cleanup.
 
-#### When to Use `ReactiveResource`
+### When to Use `ReactiveResource`
 For most cases, using `Ref` directly is sufficient, but in some situations, using `ReactiveResource` performs better. Here are some examples:
 1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). `ReactiveResource` 's automatic export feature can avoid this situation.
 2. For content that needs serialization and deserialization, `ReactiveResource` can be transformed directly using built-in functions without additional operations.
