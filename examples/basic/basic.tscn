@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://c6b8j7h68v05d"]
 
-[ext_resource type="Script" uid="uid://dpxttg5vihywp" path="res://test/basic/basic.gd" id="1_3k6wg"]
+[ext_resource type="Script" uid="uid://dpxttg5vihywp" path="res://examples/basic/basic.gd" id="1_3k6wg"]
 [ext_resource type="Script" uid="uid://dqby706be3782" path="res://bindora/ref/ref_variant/ref_string.gd" id="2_j5qnw"]
 [ext_resource type="Script" uid="uid://16bgbap4qq3b" path="res://bindora/ref/ref_variant/ref_color.gd" id="3_gpfho"]
 [ext_resource type="Script" uid="uid://belehwqb303y4" path="res://bindora/ref/ref_variant/ref_float.gd" id="3_oxse3"]
-[ext_resource type="Shader" uid="uid://d2t6fmet36dl6" path="res://test/basic/basic.gdshader" id="5_prbnh"]
+[ext_resource type="Shader" uid="uid://d2t6fmet36dl6" path="res://examples/basic/basic.gdshader" id="5_prbnh"]
 
 [sub_resource type="Resource" id="Resource_oxse3"]
 script = ExtResource("2_j5qnw")

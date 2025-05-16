@@ -8,7 +8,7 @@ extends Control
 @onready var sort_items_button: Button = $SortItemsButton
 @onready var label: Label = $Label
 
-const ITEM = preload("res://test/list/item.tscn")
+const ITEM = preload("res://examples/list/item.tscn")
 const NAMES := ["Tom", "Jerry", "Peter"]
 
 var list_ref := RefArray.new()
