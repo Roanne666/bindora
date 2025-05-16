@@ -2,6 +2,8 @@
 
 English | [简体中文](README.zh_cn.md)
 
+> **NOTE**: Bindora is currently in the development stage and the API is subject to change, so please use it with caution.
+
 Bindora is a reactive data binding library for Godot 4.x. Based on Godot's design philosophy, it provides a declarative and component-based approach to help you manage relationships between nodes and data.
 
 ## Core Features
