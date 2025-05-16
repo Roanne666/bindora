@@ -121,6 +121,12 @@ func create_watcher(_callable: Callable) -> SingleWatcher:
 	return SingleWatcher.new(self, _callable)
 
 
+## Adds a watcher to this reference
+func add_watcher(_watcher: Watcher) -> void:
+	_watchers.append(_watcher)
+	pass
+
+
 ## Removes a watcher from this reference
 func remove_watcher(_watcher: Watcher) -> void:
 	_watchers.erase(_watcher)
