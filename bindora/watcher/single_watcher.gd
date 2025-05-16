@@ -6,7 +6,7 @@ var ref: Ref
 func _init(_ref: Ref, _callable: Callable) -> void:
 	ref = _ref
 	callable = _callable
-	ref._watchers.append(self)
+	ref.add_watcher(self)
 	pass
 
 
