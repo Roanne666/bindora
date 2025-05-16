@@ -157,12 +157,12 @@ func remove_all_watchers() -> void:
 	pass
 
 
-## Internal method to update all _bindings and _watchers
+## Internal method to update all bindings and _watchers
 func _update() -> void:
 	if before_update:
 		before_update.call(value)
 
-	# Remove invalid _bindings.
+	# Remove invalid bindings.
 	for b in bindings:
 		if b == null:
 			bindings.erase(b)
