@@ -35,7 +35,7 @@ var watchers: Array[Watcher] = []
 
 ## Sets the value with type checking and conversion
 func _set_value(_new_value: Variant) -> void:
-	# 赋值前判断
+	# type check
 	var new_type = typeof(_new_value) as Variant.Type
 	if not Engine.is_editor_hint():
 		if type == TYPE_NIL:
@@ -46,7 +46,8 @@ func _set_value(_new_value: Variant) -> void:
 		elif _new_value == value:
 			return
 	var fixed_new_value = _new_value
-	# 根据传入的变量类型决定赋值方式
+
+	# convert
 	if type == TYPE_DICTIONARY:
 		var ref_dict: Dictionary[String, Ref] = {}
 		for k in _new_value:
@@ -59,6 +60,7 @@ func _set_value(_new_value: Variant) -> void:
 		fixed_new_value = _new_value.map(func(v: Variant): var ref = Ref.new(); ref.value = v; return ref)
 	else:
 		fixed_new_value = type_convert(_new_value, type)
+		
 	value_updated.emit(value, fixed_new_value)
 	value = fixed_new_value
 	_update()
