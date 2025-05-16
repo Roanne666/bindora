@@ -56,7 +56,7 @@ func _set_value(_new_value: Variant) -> void:
 		fixed_new_value = ref_dict
 		value = ref_dict
 	elif type == TYPE_ARRAY:
-		fixed_new_value = _new_value.map(func(v: Variant): var ref=Ref.new(); ref.value=v; return ref)
+		fixed_new_value = _new_value.map(func(v: Variant): var ref = Ref.new(); ref.value = v; return ref)
 	else:
 		fixed_new_value = type_convert(_new_value, type)
 	value_updated.emit(value, fixed_new_value)
@@ -89,7 +89,7 @@ func get_value() -> Variant:
 	return value
 
 
-func _init(_value=null) -> void:
+func _init(_value = null) -> void:
 	if _value != null:
 		value = _value
 	pass
@@ -110,9 +110,21 @@ func add_binding(_binding: Binding) -> void:
 	pass
 
 
+## Adds multiple bindings to this reference
+func add_bindings(_bindings: Array[Binding]) -> void:
+	_bindings.append_array(_bindings)
+	pass
+
+
 ## Removes a binding from this reference
 func remove_binding(_binding: Binding) -> void:
 	_bindings.erase(_bindings)
+	pass
+
+
+## Removes all bindings from this reference
+func remove_all_bindings() -> void:
+	_bindings.clear()
 	pass
 
 
@@ -127,9 +139,21 @@ func add_watcher(_watcher: Watcher) -> void:
 	pass
 
 
+## Adds multiple watchers to this reference
+func add_watchers(_watchers: Array[Watcher]) -> void:
+	_watchers.append_array(_watchers)
+	pass
+
+
 ## Removes a watcher from this reference
 func remove_watcher(_watcher: Watcher) -> void:
 	_watchers.erase(_watcher)
+	pass
+
+
+## Removes all watchers from this reference
+func remove_all_watchers() -> void:
+	_watchers.clear()
 	pass
 
 
