@@ -8,19 +8,19 @@
 
 [sub_resource type="Resource" id="Resource_oxse3"]
 script = ExtResource("2_j5qnw")
-type = 4
+__type__ = null
 value = "apple"
 metadata/_custom_type_script = "uid://dqby706be3782"
 
 [sub_resource type="Resource" id="Resource_gpfho"]
 script = ExtResource("3_oxse3")
-type = 3
+__type__ = null
 value = 200.0
 metadata/_custom_type_script = "uid://belehwqb303y4"
 
 [sub_resource type="Resource" id="Resource_prbnh"]
 script = ExtResource("3_gpfho")
-type = 20
+__type__ = null
 value = Color(0.260021, 0.260021, 0.260021, 1)
 metadata/_custom_type_script = "uid://16bgbap4qq3b"
 
