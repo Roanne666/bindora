@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cb81duqpncuhi"]
 
-[ext_resource type="Script" uid="uid://k8um2h0vnv47" path="res://test/check_box/check_box.gd" id="1_0ajms"]
-[ext_resource type="ButtonGroup" uid="uid://drgn42hbqdd4f" path="res://test/check_box/button_group.tres" id="2_4uy2d"]
+[ext_resource type="Script" uid="uid://k8um2h0vnv47" path="res://examples/check_box/check_box.gd" id="1_0ajms"]
+[ext_resource type="ButtonGroup" uid="uid://drgn42hbqdd4f" path="res://examples/check_box/button_group.tres" id="2_4uy2d"]
 
 [node name="CheckBoxTest" type="Control"]
 layout_mode = 3

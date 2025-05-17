@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dh3bl235ejwxu"]
 
-[ext_resource type="Script" uid="uid://cgfvenah1flux" path="res://test/theme_override/theme_override.gd" id="1_ou5vc"]
+[ext_resource type="Script" uid="uid://cgfvenah1flux" path="res://examples/theme_override/theme_override.gd" id="1_ou5vc"]
 
 [node name="ThemeOverride" type="Control"]
 layout_mode = 3
