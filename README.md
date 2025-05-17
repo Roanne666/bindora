@@ -9,11 +9,10 @@ Bindora is a reactive data binding library for Godot 4.4. Based on Godot's desig
 ## Core Features
 
 ### Reactive Data System
-- Provides the [`Ref`](bindora/ref/ref.gd) class as the base data type
-- Supports multiple data types
+- Provide the [`Ref`](bindora/ref/ref.gd) class as the foundation for various data types
 - Supports serialization and deserialization
 - Automatic type conversion and checking
-- Provides lifecycle hooks
+- Provides `signal` for data monitoring
 
 ### Comprehensive Binding Support
 [`TextBinding`](bindora/binding/text_binding.gd), [`InputBinding`](bindora/binding/input_binding.gd), [`RadioBinding`](bindora/binding/radio_binding.gd), [`CheckBoxBinding`](bindora/binding/check_box_binding.gd), [`PropertyBinding`](bindora/binding/property_binding.gd), [`ShowBinding`](bindora/binding/show_binding.gd), [`ShaderBinding`](bindora/binding/shader_binding.gd), [`ToggleBinding`](bindora/binding/toggle_binding.gd), [`ListBinding`](bindora/binding/list_binding.gd), [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd), [`CustomBinding`](bindora/binding/custom_binding.gd)
@@ -41,12 +40,9 @@ var text_ref = RefString.new("Hello World")
 text_ref.bind_text(self)
 
 # Create a watcher
-text_ref.create_watcher(func(watcher,new_value):
+text_ref.value_updated.connect(func(old_value,new_value):
     print("Text changed to: ", new_value)
 )
-
-# Wait for a while
-await get_tree().create_timer(3.0).timeout
 
 # Modify data
 text_ref.value = "New Text"
@@ -55,8 +51,8 @@ text_ref.set_value("New Text") # Using set_value is recommended as it includes t
 ```
 The `Ref` class provides many convenient binding methods, which you can explore in the [API Reference](#api-reference).
 
-### Using `Binding` and `Watcher`  
-When you need more complex data binding, you can directly use `Binding` and `Watcher`.
+### Using `Binding`
+When you need more complex data binding, you can directly use `Binding` .
 
 ```gdscript
 extends Label
@@ -64,22 +60,17 @@ extends Label
 var text_ref = RefString.new("Hello")
 var text_ref2 = RefString.new("World")
 var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
-
-var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
-    print("Text changed to: %s %s" % [new_values[0], new_values[1]])
-)
 ```
 
 ### Using `ReactiveResource`
 Create a resource class that extends `ReactiveResource` and declare `Ref` variables within it.
 > **Note**: `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
 ```gdscript
-class MyResource extends ReactiveResource:
-
-var text_ref = RefString.new("Hello World")
+class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
 ```
 
-Using `RefArray` in combination.
+Using with `RefArray`.
 ```gdscript
 var packed_scene = preload("res://path/to/your/packed_scene.tscn")
 var array = RefArray.new()
@@ -122,13 +113,29 @@ Choose appropriate `Ref` types for your data, such as `RefString` , `RefInt` , e
 Try to avoid using `.value` to manipulate values, as it lacks type checking in the editor and may only report errors during runtime. Instead, use `set_value()` and `get_value()` functions which perform type checking at the editor stage.
 
 ### Binding Management
-`Binding` automatically detects whether nodes exist and cleans up accordingly, requiring no manual cleanup. However, `Watcher` is node-independent and needs manual judgment and cleanup.
+`Binding` will automatically recognize whether the node exists and recycle it. If you need to manually recycle it, you can use the `destroy()` method.
 
 ### When to Use `ReactiveResource`
-For most cases, using `Ref` directly is sufficient, but in some situations, using `ReactiveResource` performs better. Here are some examples:
+For most cases, using `Ref` will suffice. However, in some cases, using `ReactiveResource` can provide better performance. Here are a few examples:
 1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). `ReactiveResource` 's automatic export feature can avoid this situation.
 2. For content that needs serialization and deserialization, `ReactiveResource` can be transformed directly using built-in functions without additional operations.
 3. When you want to use `RefDictionary`, you can use `ReactiveResource` instead, as it provides better type checking and autocomplete.
+
+```gdscript
+# Recommended
+class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
+
+# Optional
+class MyResource extends Resource
+    @export var text_ref = RefString.new("Hello World")
+    @export var number_ref = RefInt.new(1)
+
+# Not recommended
+extends Node
+    var dict_ref = RefDictionary.new({"text": "Hello World", "number": 1})
+```
 
 ## API Reference
 

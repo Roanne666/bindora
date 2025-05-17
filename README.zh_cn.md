@@ -9,19 +9,13 @@ Bindora 是一个用于 Godot 4.4 的响应式数据绑定库。它基于 Godot 
 ## 核心功能
 
 ### 响应式数据系统
-- 提供 [`Ref`](bindora/ref/ref.gd) 类作为基础数据类型
-- 支持多种数据类型
+- 提供 [`Ref`](bindora/ref/ref.gd) 类作为基础的多种数据类型
 - 支持序列化和反序列化
 - 自动类型转换和检查
-- 提供生命周期钩子
+- 以 `信号` 的方式进行数据监控
   
 ### 丰富的绑定支持
 [`文本绑定`](bindora/binding/text_binding.gd)、[`输入绑定`](bindora/binding/input_binding.gd)、[`单选框绑定`](bindora/binding/radio_binding.gd)、[`复选框绑定`](bindora/binding/check_box_binding.gd)、[`属性绑定`](bindora/binding/property_binding.gd)、[`显示绑定`](bindora/binding/show_binding.gd)、[`着色器绑定`](bindora/binding/shader_binding.gd)、[`切换绑定`](bindora/binding/toggle_binding.gd)、[`列表绑定`](bindora/binding/list_binding.gd)、[`主题覆盖绑定`](bindora/binding/theme_override_binding.gd)、[`自定义绑定器`](bindora/binding/custom_binding.gd)
-  
-### 数据监控
-- 提供 [`Watcher`](bindora/watcher/watcher.gd) 类进行数据监控
-- 支持单值和多值监控
-- 支持自定义回调函数
 
 ## 快速开始
 
@@ -38,9 +32,9 @@ extends Label
 var text_ref = RefString.new("Hello World")
 text_ref.bind_text(self)
 
-# 创建观察者
-text_ref.create_watcher(func(watcher,new_value):
-    print("Text changed to: ", new_value)
+# 创建监听器
+text_ref.value_updated.connect(func(old_value,new_value):
+    print("Text changed to: %s" % new_value)
 )
 
 # 修改数据
@@ -50,8 +44,8 @@ text_ref.set_value("New Text") # 推荐使用 set_value 方法，因为它会检
 ```
 `Ref` 类中提供了非常多的快捷绑定方法，你可以在 [API 参考](#api-参考)中查看
 
-### 使用 `Binding` 和 `Watcher`
-当你需要更复杂的数据绑定时，可以直接使用 `Binding` 和 `Watcher` 。
+### 使用 `Binding`
+当你需要更复杂的数据绑定时，可以直接使用 `Binding` 。
 
 ```gdscript
 extends Label
@@ -59,19 +53,16 @@ extends Label
 var text_ref = RefString.new("Hello")
 var text_ref2 = RefString.new("World")
 var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
-
-var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
-    print("Text changed to: %s %s" % [new_values[0], new_values[1]])
-)
 ```
 
 ### 使用 `ReactiveResource`
 创建一个资源类，继承 `ReactiveResource`，然后在其中声明 `Ref` 变量。
-> **注意**：在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
-```gdscript
-class MyResource extends ReactiveResource:
 
-var text_ref = RefString.new("Hello World")
+> **注意**：在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
+
+```gdscript
+class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
 ```
 
 结合 `RefArray` 使用。
@@ -117,13 +108,29 @@ print(new_resource.text_ref.value) # Hello World
 尽量避免使用 `.value` 来操作值，它在编辑器中是没有类型检查的，可能在运行中才会报错。而使用 `set_value()` 和 `get_value()` 函数则会在编辑器阶段就进行类型检查。
 
 ### 绑定管理
-`Binding` 会自动识别节点是否存在并清理，无需手动清理。而 `Watcher` 是不依赖于节点的，需要手动判断并清理。
+`Binding` 会自动识别节点是否存在并回收。如果需要手动回收，可以使用 `destroy()` 方法。
 
 ### 什么时候使用 `ReactiveResource`
-对于大多数情况，直接使用 `Ref` 都能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好。以下为几个例子：
+对于大多数情况，只使用 `Ref` 就能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好。以下为几个例子：
 1. 在使用 `@export` 导出属性时，大量的 `Ref` 会使检查器变得复杂且不直观（因为导出的属性会包装一层），而 `ReactiveResource` 的自动导出功能可以避免这种情况。
 2. 对于需要序列化和反序列化的内容，`ReactiveResource` 可以使用自带函数直接转化，不需要额外操作。
 3. 当你想用 `RefDictionary` 时，可以使用 `ReactiveResource` 来替代，因为它可以提供更好的类型检查和自动补全。
+
+```gdscript
+# 推荐使用
+class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
+
+# 可选用
+class MyResource extends Resource
+    @export var text_ref = RefString.new("Hello World")
+    @export var number_ref = RefInt.new(1)
+
+# 不推荐使用
+extends Node
+    var dict_ref = RefDictionary.new({"text": "Hello World", "number": 1})
+```
 
 ## API 参考
 
