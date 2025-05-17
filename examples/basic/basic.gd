@@ -49,7 +49,7 @@ func _ready() -> void:
 	disabled_ref.bind_property(times_button, "disabled")
 
 	# Custom binding, watcher and show binding.
-	custom_ref.create_watcher(_create_watcher)
+	custom_ref.value_updated.connect(_print_times)
 	custom_ref.bind_custom(times_button, _custom_bind)
 	custom_ref.bind_show(check_button_2, func(_value: int): return _value >= 5)
 	times_button.pressed.connect(func(): custom_ref.value += 1)
@@ -63,10 +63,10 @@ func _ready() -> void:
 	pass
 
 
-func _create_watcher(_watcher: SingleWatcher, _new_value: int) -> void:
+func _print_times(_old_value:int, _new_value: int) -> void:
 	print("Click %d times." % _new_value)
 	if _new_value >= 5:
-		_watcher.destroy()
+		custom_ref.value_updated.disconnect(_print_times)
 
 
 func _custom_bind(_node: Button, _refs: Array[Ref]) -> void:

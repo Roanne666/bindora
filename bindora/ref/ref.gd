@@ -82,8 +82,3 @@ func _get_property_list() -> Array[Dictionary]:
 ## Creates a custom binding with a callable.
 func bind_custom(_node: CanvasItem, _callable: Callable) -> CustomBinding:
 	return CustomBinding.new(_node, [self], _callable)
-
-
-## Creates a [SingleWatcher] for this reference
-func create_watcher(_callable: Callable) -> SingleWatcher:
-	return SingleWatcher.new(self, _callable)
