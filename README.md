@@ -70,7 +70,7 @@ var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
 )
 ```
 
-### Using ReactiveResource
+### Using `ReactiveResource`
 Create a resource class that extends `ReactiveResource` and declare `Ref` variables within it.
 > **Note**: `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
 ```gdscript

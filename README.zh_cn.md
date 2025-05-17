@@ -65,7 +65,7 @@ var watcher = MultiWatcher.new([text_ref,text_ref2], func(watcher,new_values):
 )
 ```
 
-### 使用 ReactiveResource
+### 使用 `ReactiveResource`
 创建一个资源类，继承 `ReactiveResource`，然后在其中声明 `Ref` 变量。
 > **注意**：在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
 ```gdscript
