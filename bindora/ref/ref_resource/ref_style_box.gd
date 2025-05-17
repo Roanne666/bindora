@@ -12,7 +12,5 @@ func get_value() -> StyleBox:
 
 
 func _init(_value: StyleBox = null) -> void:
-	type = TYPE_OBJECT
-	resource_type = "StyleBox"
-	super (_value)
+	super (_value, "StyleBox")
 	pass

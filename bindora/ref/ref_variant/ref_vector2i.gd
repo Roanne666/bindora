@@ -11,7 +11,7 @@ func get_value() -> Vector2i:
 	return value
 
 
-func _init(_value:=Vector2i()) -> void:
-	type = TYPE_VECTOR2I
+func _init(_value := Vector2i()) -> void:
+	__type__ = TYPE_VECTOR2I
 	super (_value)
 	pass

@@ -11,7 +11,7 @@ func get_value() -> String:
 	return value
 
 
-func _init(_value:=String()) -> void:
-	type = TYPE_STRING
-	super(_value)
+func _init(_value := String()) -> void:
+	__type__ = TYPE_STRING
+	super (_value)
 	pass

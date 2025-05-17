@@ -12,7 +12,5 @@ func get_value() -> Texture:
 
 
 func _init(_value: Texture = null) -> void:
-	type = TYPE_OBJECT
-	resource_type = "Texture"
-	super (_value)
+	super (_value, "Texture")
 	pass

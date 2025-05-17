@@ -11,7 +11,7 @@ func get_value() -> float:
 	return value
 
 
-func _init(_value:=float()) -> void:
-	type = TYPE_FLOAT
+func _init(_value := float()) -> void:
+	__type__ = TYPE_FLOAT
 	super (_value)
 	pass

@@ -12,7 +12,5 @@ func get_value() -> Font:
 
 
 func _init(_value: Font = null) -> void:
-	type = TYPE_OBJECT
-	resource_type = "Font"
-	super (_value)
+	super (_value, "Font")
 	pass

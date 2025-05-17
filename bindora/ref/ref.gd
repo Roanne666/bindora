@@ -6,7 +6,7 @@ class_name Ref extends Resource
 signal value_updated(old_value, new_value)
 
 ## The expected type of the value this reference holds
-@export_storage var type: Variant.Type = TYPE_NIL
+@export_storage var __type__: Variant.Type = TYPE_NIL
 
 ## The actual stored value with custom setter logic
 var value: Variant:
@@ -15,19 +15,19 @@ var value: Variant:
 
 ## Sets the value with type checking and conversion
 func _set_value(_new_value) -> void:
-	# type check
+	# __type__ check
 	var new_type = typeof(_new_value) as Variant.Type
 	if not Engine.is_editor_hint():
-		if type == TYPE_NIL:
-			type = new_type
-		elif type != new_type and not _type_convert_check(new_type):
+		if __type__ == TYPE_NIL:
+			__type__ = new_type
+		elif __type__ != new_type and not _type_convert_check(new_type):
 			push_error("Type error, value should be %s" % type_string(new_type))
 			return
 		elif _new_value == value:
 			return
 
 	# convert
-	if type == TYPE_DICTIONARY:
+	if __type__ == TYPE_DICTIONARY:
 		var fixed_value: Dictionary[String, Ref] = {}
 		for k in _new_value:
 			var new_ref = Ref.new()
@@ -35,25 +35,25 @@ func _set_value(_new_value) -> void:
 			fixed_value[k] = new_ref
 		value_updated.emit(value, fixed_value)
 		value = fixed_value
-	elif type == TYPE_ARRAY:
+	elif __type__ == TYPE_ARRAY:
 		value = _new_value
 		value_updated.emit(-1, null)
 	else:
-		var fixed_value = type_convert(_new_value, type)
+		var fixed_value = type_convert(_new_value, __type__)
 		value = fixed_value
 		value_updated.emit(value, fixed_value)
 	pass
 
 ## Checks if type conversion between types is allowed
 func _type_convert_check(_new_type: int) -> bool:
-	if type == TYPE_STRING:
+	if __type__ == TYPE_STRING:
 		if _new_type == TYPE_INT:
 			return true
 		elif _new_type == TYPE_FLOAT:
 			return true
-	elif type == TYPE_INT and _new_type == TYPE_FLOAT:
+	elif __type__ == TYPE_INT and _new_type == TYPE_FLOAT:
 		return true
-	elif type == TYPE_FLOAT and _new_type == TYPE_INT:
+	elif __type__ == TYPE_FLOAT and _new_type == TYPE_INT:
 		return true
 	return false
 
@@ -76,7 +76,7 @@ func _init(_value = null) -> void:
 
 
 func _get_property_list() -> Array[Dictionary]:
-	return [ {"name": "value", "type": type, "usage": PROPERTY_USAGE_DEFAULT}]
+	return [ {"name": "value", "type": __type__, "usage": PROPERTY_USAGE_DEFAULT}]
 
 
 ## Creates a custom binding with a callable.
