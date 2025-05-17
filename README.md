@@ -2,7 +2,8 @@
 
 English | [简体中文](README.zh_cn.md)
 
-> **NOTE**: Bindora is currently in the development stage and the API is subject to change, so please use it with caution.
+> [!NOTE]
+> Bindora is currently in the development stage and the API is subject to change, so please use it with caution.
 
 Bindora is a reactive data binding library for Godot 4.4. Based on Godot's design philosophy, it provides a declarative and component-based approach to help you manage relationships between nodes and data.
 
@@ -63,8 +64,11 @@ var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "T
 ```
 
 ### Using `ReactiveResource`
+
 Create a resource class that extends `ReactiveResource` and declare `Ref` variables within it.
-> **Note**: `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
+
+> [!NOTE]
+> `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
 ```gdscript
 class MyResource extends ReactiveResource
     var text_ref = RefString.new("Hello World")

@@ -2,7 +2,8 @@
 
 [English](README.md) | 简体中文
 
-> **注意**：Bindora 目前处于开发阶段，API 可能会发生变化，请谨慎使用。
+> [!NOTE]
+> Bindora 目前处于开发阶段，API 可能会发生变化，请谨慎使用。
 
 Bindora 是一个用于 Godot 4.4 的响应式数据绑定库。它基于 Godot 的设计理念，提供了一种声明式和组件化的方式，帮助你处理节点和数据之间的关系。
 
@@ -58,7 +59,8 @@ var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "T
 ### 使用 `ReactiveResource`
 创建一个资源类，继承 `ReactiveResource`，然后在其中声明 `Ref` 变量。
 
-> **注意**：在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
+> [!NOTE]
+> 在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
 
 ```gdscript
 class MyResource extends ReactiveResource
