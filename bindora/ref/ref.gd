@@ -8,6 +8,8 @@ signal value_updated(old_value, new_value)
 ## The expected type of the value this reference holds
 @export_storage var __type__: Variant.Type = TYPE_NIL
 
+var __refs__: Array[Ref] = []
+
 ## The actual stored value with custom setter logic
 var value: Variant:
 	set = _set_value
@@ -15,7 +17,7 @@ var value: Variant:
 
 ## Sets the value with type checking and conversion
 func _set_value(_new_value) -> void:
-	# __type__ check
+	# type check
 	var new_type = typeof(_new_value) as Variant.Type
 	if not Engine.is_editor_hint():
 		if __type__ == TYPE_NIL:
@@ -82,3 +84,14 @@ func _get_property_list() -> Array[Dictionary]:
 ## Creates a custom binding with a callable.
 func bind_custom(_node: CanvasItem, _callable: Callable) -> CustomBinding:
 	return CustomBinding.new(_node, [self], _callable)
+
+
+## Make this reference a computed one.
+func as_computed(_refs: Array[Ref], _callable: Callable) -> void:
+	__refs__ = _refs
+	for ref in __refs__:
+		ref.value_updated.connect(func(_old_value, _new_value):
+			set_value(_callable.call(__refs__))
+		)
+	set_value(_callable.call(__refs__))
+	pass

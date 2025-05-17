@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1djo0c762h1u"]
+
+[ext_resource type="Script" uid="uid://cumxi26lljr8e" path="res://examples/computed/computed.gd" id="1_1piuf"]
+
+[node name="Computed" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1piuf")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 25.0
+offset_right = 191.0
+offset_bottom = 81.0
+text = "Text is {{value}}"
