@@ -16,7 +16,7 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String 
 		template = node.get("text") if _template.is_empty() else _template
 	else:
 		push_error("Node missing required 'text' property")
-	_update(null, null)
+	_on_ref_value_changed(null, null)
 	pass
 
 

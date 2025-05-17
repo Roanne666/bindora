@@ -15,7 +15,7 @@ func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
 	value = _value
 	if "toggled" in _node:
 		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: ref.value = value)
-	_update(null, ref.value)
+	_on_ref_value_changed(null, ref.value)
 	pass
 
 

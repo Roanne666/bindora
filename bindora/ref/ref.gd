@@ -14,7 +14,7 @@ var value: Variant:
 
 
 ## Sets the value with type checking and conversion
-func _set_value(_new_value: Variant) -> void:
+func _set_value(_new_value) -> void:
 	# type check
 	var new_type = typeof(_new_value) as Variant.Type
 	if not Engine.is_editor_hint():
@@ -40,8 +40,8 @@ func _set_value(_new_value: Variant) -> void:
 		value_updated.emit(-1, null)
 	else:
 		var fixed_value = type_convert(_new_value, type)
-		value_updated.emit(value, fixed_value)
 		value = fixed_value
+		value_updated.emit(value, fixed_value)
 	pass
 
 ## Checks if type conversion between types is allowed

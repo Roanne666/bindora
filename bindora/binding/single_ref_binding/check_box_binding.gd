@@ -26,6 +26,6 @@ func _on_node_toggled(_toggled_on: bool) -> void:
 	pass
 
 
-func _update(_old_value: Array, _new_value: Array) -> void:
-	node.set_pressed_no_signal(value in _new_value)
+func _update(_old_value, _new_value) -> void:
+	node.set_pressed_no_signal(value in ref.value)
 	pass
