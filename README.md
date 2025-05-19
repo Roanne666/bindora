@@ -18,11 +18,6 @@ Bindora is a reactive data binding library for Godot 4.4. Based on Godot's desig
 ### Comprehensive Binding Support
 [`TextBinding`](bindora/binding/text_binding.gd), [`InputBinding`](bindora/binding/input_binding.gd), [`RadioBinding`](bindora/binding/radio_binding.gd), [`CheckBoxBinding`](bindora/binding/check_box_binding.gd), [`PropertyBinding`](bindora/binding/property_binding.gd), [`ShowBinding`](bindora/binding/show_binding.gd), [`ShaderBinding`](bindora/binding/shader_binding.gd), [`ToggleBinding`](bindora/binding/toggle_binding.gd), [`ListBinding`](bindora/binding/list_binding.gd), [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd), [`CustomBinding`](bindora/binding/custom_binding.gd)
 
-### Data Monitoring
-- Provides the [`Watcher`](bindora/watcher/watcher.gd) class for data monitoring
-- Supports single and multi-value monitoring
-- Supports custom callback functions
-
 ## Quick Start
 
 ### Installing Bindora
