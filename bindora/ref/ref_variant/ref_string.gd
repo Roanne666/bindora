@@ -12,6 +12,5 @@ func get_value() -> String:
 
 
 func _init(_value := String()) -> void:
-	__type__ = TYPE_STRING
-	super (_value)
+	super (TYPE_STRING, _value)
 	pass

@@ -7,6 +7,5 @@ func get_value() -> Color:
 
 
 func _init(_value := Color()) -> void:
-	__type__ = TYPE_COLOR
-	super (_value)
+	super (TYPE_COLOR, _value)
 	pass

@@ -12,6 +12,5 @@ func get_value() -> bool:
 
 
 func _init(_value := bool()) -> void:
-	__type__ = TYPE_BOOL
-	super (_value)
+	super (TYPE_BOOL, _value)
 	pass

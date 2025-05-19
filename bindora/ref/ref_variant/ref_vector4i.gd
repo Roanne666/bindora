@@ -12,6 +12,5 @@ func get_value() -> Vector4i:
 
 
 func _init(_value := Vector4i()) -> void:
-	__type__ = TYPE_VECTOR4I
-	super (_value)
+	super (TYPE_VECTOR4I, _value)
 	pass

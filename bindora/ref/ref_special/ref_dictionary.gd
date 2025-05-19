@@ -16,8 +16,7 @@ func get_value() -> Dictionary:
 
 
 func _init(_value := Dictionary()) -> void:
-	__type__ = TYPE_DICTIONARY
-	super (_value)
+	super (TYPE_DICTIONARY,_value)
 	pass
 
 

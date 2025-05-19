@@ -33,9 +33,7 @@ func _set_value(_new_value) -> void:
 	if __type__ == TYPE_DICTIONARY:
 		var fixed_value: Dictionary[String, Ref] = {}
 		for k in _new_value:
-			var new_ref = Ref.new()
-			new_ref.value = _new_value[k]
-			fixed_value[k] = new_ref
+			fixed_value[k] = Ref.new(typeof(_new_value[k]), _new_value[k])
 		value_updated.emit(value, fixed_value)
 		value = fixed_value
 	elif __type__ == TYPE_ARRAY:
@@ -72,7 +70,8 @@ func get_value() -> Variant:
 	return value
 
 
-func _init(_value = null) -> void:
+func _init(_type: Variant.Type, _value = null) -> void:
+	__type__ = _type
 	if _value != null:
 		value = _value
 	pass
