@@ -8,7 +8,7 @@ signal value_updated(old_value, new_value)
 ## The expected type of the value this reference holds
 @export_storage var __type__: Variant.Type = TYPE_NIL
 
-var __refs__: Array[Ref] = []
+var __computed_refs__: Array[Ref] = []
 
 ## The actual stored value with custom setter logic
 var value: Variant:
@@ -88,10 +88,10 @@ func bind_custom(_node: CanvasItem, _callable: Callable) -> CustomBinding:
 
 ## Make this reference a computed one.
 func as_computed(_refs: Array[Ref], _callable: Callable) -> void:
-	__refs__ = _refs
-	for ref in __refs__:
+	__computed_refs__ = _refs
+	for ref in __computed_refs__:
 		ref.value_updated.connect(func(_old_value, _new_value):
-			set_value(_callable.call(__refs__))
+			set_value(_callable.call(__computed_refs__))
 		)
-	set_value(_callable.call(__refs__))
+	set_value(_callable.call(__computed_refs__))
 	pass
