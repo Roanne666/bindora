@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf24q4k602e4e"]
+
+[ext_resource type="Script" uid="uid://dbrg7dlitk5tq" path="res://examples/reactive/weapon.gd" id="1_orbln"]
+
+[node name="Weapon" type="Node"]
+script = ExtResource("1_orbln")
+__text_ref__ = "sword"
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Text is {{value}}"

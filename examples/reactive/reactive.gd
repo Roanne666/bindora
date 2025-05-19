@@ -1,3 +1,4 @@
+@tool
 extends Control
 
 @export var item := ItemResource.new()
