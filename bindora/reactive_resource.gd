@@ -46,18 +46,18 @@ func _init() -> void:
 	for p in get_property_list():
 		var ref = get(p["name"])
 		if ref is Ref:
-			__refs__.set(p["name"], ref.type)
+			__refs__.set(p["name"], ref.__type__)
 
 
 func _get_property_list() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
 	for k in __refs__:
-		properties.append({"name": "_%s"%k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT})
+		properties.append({"name": "__%s__"%k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT})
 	return properties
 
 
 func _set(property: StringName, value: Variant) -> bool:
-	var ref_name = property.get_slice("_", 1)
+	var ref_name = property.left(-2).right(-2)
 	if ref_name in __refs__:
 		var ref = get(ref_name)
 		if ref is Ref:
@@ -67,7 +67,7 @@ func _set(property: StringName, value: Variant) -> bool:
 
 
 func _get(property: StringName) -> Variant:
-	var ref_name = property.get_slice("_", 1)
+	var ref_name = property.left(-2).right(-2)
 	if ref_name in __refs__:
 		var ref = get(ref_name)
 		if ref is Ref:
