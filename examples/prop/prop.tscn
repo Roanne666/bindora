@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://2iy85d1kf8p1"]
+
+[ext_resource type="Script" uid="uid://q832m7lry4tu" path="res://examples/prop/prop.gd" id="1_qxbwn"]
+[ext_resource type="Script" uid="uid://bkx0bcf24q5bs" path="res://examples/prop/label.gd" id="2_ahr7r"]
+
+[node name="Prop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qxbwn")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Text is {{value}}"
+script = ExtResource("2_ahr7r")
