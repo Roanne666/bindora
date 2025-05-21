@@ -53,7 +53,9 @@ extends Label
 
 var text_ref = RefString.new("Hello")
 var text_ref2 = RefString.new("World")
-var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
+
+func _ready():->void:
+    var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
 ```
 
 ### 使用 `ReactiveResource`
