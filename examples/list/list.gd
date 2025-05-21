@@ -49,6 +49,5 @@ func _on_random_remove_button_pressed() -> void:
 
 
 # Multi ref binding.
-func _create_binding(_scene: Node, _data: Person, _index: int) -> void:
-	TextBinding.new(_scene, {"uid": _data.uid, "full_name": _data.full_name, "age": _data.age})
-	pass
+func _create_binding(_scene: Node, _data: Person, _index: int) -> Array[Binding]:
+	return [TextBinding.new(_scene, {"uid": _data.uid, "full_name": _data.full_name, "age": _data.age})]
