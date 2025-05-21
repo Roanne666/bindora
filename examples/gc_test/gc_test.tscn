@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf62h4646of4j"]
+
+[ext_resource type="Script" uid="uid://cd1o3l6i5kgof" path="res://examples/gc_test/gc_test.gd" id="1_njsxt"]
+
+[node name="GcTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_njsxt")
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 994.0
+offset_top = 547.0
+offset_right = 1107.0
+offset_bottom = 602.0
+text = "change scene"
