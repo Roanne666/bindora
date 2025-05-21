@@ -11,6 +11,11 @@ var node: Node
 ## Initializes the binding with a target node
 func _init(_node: CanvasItem) -> void:
 	node = _node
+	node.tree_exiting.connect(_on_node_exiting)
+	pass
+
+func _on_node_exiting() -> void:
+	dispose()
 	pass
 
 
@@ -20,7 +25,7 @@ func _create_connect_callable() -> Callable:
 
 func _on_ref_value_changed(_old_value, _new_value) -> void:
 	if node == null:
-		destroy()
+		dispose()
 	else:
 		_update(_old_value, _new_value)
 
@@ -31,5 +36,5 @@ func _update(_old_value, _new_value) -> void:
 
 
 ## Cleans up the binding resources
-func destroy() -> void:
+func dispose() -> void:
 	pass
