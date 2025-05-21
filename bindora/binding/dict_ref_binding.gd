@@ -37,7 +37,7 @@ func remove_ref(_property: String) -> void:
 	pass
 
 
-func destroy() -> void:
+func dispose() -> void:
 	for k in refs:
 		refs[k].value_updated.disconnect(__callables__[k])
 	refs.clear()

@@ -38,7 +38,7 @@ func _update(_diff: int, _arg) -> void:
 		elif ref.size() < node.get_child_count():
 			for b in __bindings__[_diff]:
 				if b is Binding:
-					b.destroy()
+					b.dispose()
 			__bindings__.remove_at(_diff)
 
 			# Item was removed - clean up corresponding node
@@ -52,7 +52,7 @@ func _update(_diff: int, _arg) -> void:
 		for b in __bindings__:
 			for bb in b:
 				if bb is Binding:
-					bb.destroy()
+					bb.dispose()
 		__bindings__.clear()
 
 		# Clear existing children

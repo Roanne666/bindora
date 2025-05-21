@@ -36,7 +36,7 @@ func remove_ref(_ref: Ref) -> void:
 	_on_ref_value_changed(null, null)
 	pass
 
-func destroy() -> void:
+func dispose() -> void:
 	for ref in refs:
 		ref.value_updated.disconnect(__callables__[ref])
 	__callables__.clear()
