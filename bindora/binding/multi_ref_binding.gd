@@ -6,22 +6,20 @@ class_name MultiRefBinding extends Binding
 
 ## Array of references being monitored by this binding
 var refs: Array[Ref]
-var __callables__: Dictionary[Ref, Callable] = {}
+
 
 func _init(_node: CanvasItem, _refs: Array[Ref]) -> void:
 	super (_node)
 	refs = _refs
 	for r in refs:
-		__callables__[r] = _create_connect_callable()
-		r.value_updated.connect(__callables__[r])
+		r.value_updated.connect(_on_ref_value_changed)
 	pass
 
 
 func add_ref(_ref: Ref) -> void:
 	if refs.has(_ref):
 		return
-	__callables__[_ref] = _create_connect_callable()
-	_ref.value_updated.connect(__callables__[_ref])
+	_ref.value_updated.connect(_on_ref_value_changed)
 	refs.append(_ref)
 	_on_ref_value_changed(null, null)
 	pass
@@ -30,15 +28,15 @@ func add_ref(_ref: Ref) -> void:
 func remove_ref(_ref: Ref) -> void:
 	if not refs.has(_ref):
 		return
-	_ref.value_updated.disconnect(__callables__[_ref])
-	__callables__.erase(_ref)
+	_ref.value_updated.disconnect(_on_ref_value_changed)
 	refs.erase(_ref)
 	_on_ref_value_changed(null, null)
 	pass
 
+
 func _dispose() -> void:
 	for ref in refs:
-		ref.value_updated.disconnect(__callables__[ref])
-	__callables__.clear()
+		ref.value_updated.disconnect(_on_ref_value_changed)
 	refs.clear()
+	super._dispose()
 	pass
