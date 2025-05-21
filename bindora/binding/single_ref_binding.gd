@@ -10,7 +10,7 @@ func _init(_node: CanvasItem, _ref: Ref) -> void:
 	pass
 
 
-func dispose() -> void:
+func _dispose() -> void:
 	if ref == null:
 		return
 	ref.value_updated.disconnect(__callable__)
