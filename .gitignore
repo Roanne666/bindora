@@ -4,3 +4,4 @@
 addons/
 .vscode/
 .tmp
+.ignore
