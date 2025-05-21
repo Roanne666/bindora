@@ -40,6 +40,7 @@ func bind_check_boxes_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionar
 
 
 ## Quick method for [ListBinding].
+## Signature: func _create_binding(_scene: Node, _data: Variant, _index: int) -> Array[Binding]: return []
 func bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -> ListBinding:
 	return ListBinding.new(_parent, self, _packed_scene, _callable)
 
@@ -48,13 +49,13 @@ func bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -
 
 func _insert_data(_position: int, _value) -> void:
 	get_value().insert(_position, _value)
-	value_updated.emit(_position, null)
+	value_updated.emit(_position, _value)
 	pass
 
 
 func _remove_data(_position: int) -> Variant:
 	var data = value.pop_at(_position)
-	value_updated.emit(_position, null)
+	value_updated.emit(_position, data)
 	return data
 
 
@@ -128,14 +129,3 @@ func size() -> int:
 
 
 #endregion
-
-
-## Internal method to recursively update object properties
-func _update_object(_object: Object) -> void:
-	for d in _object.get_property_list():
-		var object_value = _object.get(d["name"])
-		if object_value is RefVariant:
-			object_value._update()
-		elif object_value is Object:
-			_update_object(object_value)
-	pass
