@@ -21,10 +21,6 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String 
 
 
 func _update(_old_value, _new_value) -> void:
-	if node == null:
-		destroy()
-		return
-
 	var output_text = template
 
 	# Replace all template placeholders with current values
