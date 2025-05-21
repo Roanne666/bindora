@@ -1,6 +1,7 @@
 class_name Bindora extends Object
 
 
+#region provide and inject
 class Prop:
 	var node: Node
 	var name: String
@@ -38,3 +39,6 @@ static func inject(_node: Node, _property: String) -> Ref:
 		parent = parent.get_parent()
 
 	return null
+
+
+#endregion
