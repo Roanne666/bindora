@@ -9,7 +9,7 @@ class_name ShaderBinding extends DictRefBinding
 
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
 	super (_node, _refs)
-	if "material" in node:
+	if "material" in __node__:
 		_update(null, null)
 	else:
 		push_error("Node missing required 'material' property")
@@ -17,7 +17,7 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
 
 
 func _update(_old_value, _new_value) -> void:
-	var material = node.get("material") as ShaderMaterial
-	for param_name in refs:
-		material.set_shader_parameter(param_name, refs[param_name].value)
+	var material = __node__.get("material") as ShaderMaterial
+	for param_name in __refs__:
+		material.set_shader_parameter(param_name, __refs__[param_name].value)
 	pass

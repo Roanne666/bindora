@@ -7,18 +7,18 @@ class_name RadioBinding extends SingleRefBinding
 ## Requires the node to have a "toggled" signal.
 
 ## The value this radio button represents when selected
-var value: String
+var __value__: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
 	super (_node, _ref)
-	value = _value
+	__value__ = _value
 	if "toggled" in _node:
-		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: ref.value = value)
-	_on_ref_value_changed(null, ref.value)
+		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: __ref__.value = __value__)
+	_on_ref_value_changed(null, __ref__.value)
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
-	node.set_pressed_no_signal(value == _new_value)
+	__node__.set_pressed_no_signal(__value__ == _new_value)
 	pass

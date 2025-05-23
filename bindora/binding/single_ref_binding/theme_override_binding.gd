@@ -20,10 +20,10 @@ const THEME_OVERRIDE_METHODS = {
 }
 
 ## The specific theme property being overridden. (e.g. "font_color")
-var property: String
+var __property__: String
 
 ## The method name used to apply the override. (auto generate)
-var method: String
+var __method__: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
@@ -33,15 +33,15 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
 			continue
 		var split_p = p["name"].split("/")
 		if split_p[1] == _property:
-			method = THEME_OVERRIDE_METHODS[split_p[0]]
-	if not method:
+			__method__ = THEME_OVERRIDE_METHODS[split_p[0]]
+	if not __method__:
 		push_error("%s is not a valid theme override property" % _property)
 		return
-	property = _property
-	_update(null, ref.value)
+	__property__ = _property
+	_update(null, __ref__.value)
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
-	node.call(method, property, _new_value)
+	__node__.call(__method__, __property__, _new_value)
 	pass

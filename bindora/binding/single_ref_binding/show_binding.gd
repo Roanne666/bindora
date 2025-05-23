@@ -5,17 +5,17 @@ class_name ShowBinding extends SingleRefBinding
 ## Automatically updates when the reference value changes.
 
 ## The condition function that determines visibility
-var callable: Callable
+var __callable__: Callable
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _callable: Callable) -> void:
 	super (_node, _ref)
-	callable = _callable
-	_update(null, ref.value)
+	__callable__ = _callable
+	_update(null, __ref__.value)
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
-	var should_show = callable.call(_new_value)
-	node.set_visible(should_show)
+	var should_show = __callable__.call(_new_value)
+	__node__.set_visible(should_show)
 	pass

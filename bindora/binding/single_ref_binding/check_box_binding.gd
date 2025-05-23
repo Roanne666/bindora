@@ -5,27 +5,27 @@ class_name CheckBoxBinding extends SingleRefBinding
 ## Manages two-way binding between checkbox state and array membership.
 
 ## The string value that represents this checkbox's value in the array
-var value: String
+var __value__: String
 
 
 func _init(_node: CanvasItem, _ref: RefArray, _value: String) -> void:
 	super (_node, _ref)
-	value = _value
+	__value__ = _value
 	if "toggled" in _node:
 		_node.toggled.connect(func(_toggled_on: bool): _on_node_toggled(_toggled_on))
-	ref.value_updated.connect(_update)
-	_update([], _ref.value)
+	__ref__.value_updated.connect(_update)
+	_update([], __ref__.value)
 	pass
 
 
 func _on_node_toggled(_toggled_on: bool) -> void:
 	if _toggled_on:
-		ref.append(value)
+		__ref__.append(__value__)
 	else:
-		ref.erase(value)
+		__ref__.erase(__value__)
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
-	node.set_pressed_no_signal(value in ref.value)
+	__node__.set_pressed_no_signal(__value__ in __ref__.value)
 	pass

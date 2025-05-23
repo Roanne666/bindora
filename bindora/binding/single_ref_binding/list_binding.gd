@@ -9,41 +9,41 @@ class_name ListBinding extends SingleRefBinding
 ## Uses a PackedScene template for each item in the list.
 
 ## The scene template to instantiate for each list item
-var packed_scene: PackedScene
+var __packed_scene__: PackedScene
 
 ## The callback function to configure each new item
 ## Signature: func(instance: Node, data: Variant, index: int) -> void
-var callable: Callable
+var __callable__: Callable
 
 var __bindings__: Array = []
 
 
 func _init(_node: CanvasItem, _ref: RefArray, _packed_scene: PackedScene, _callable: Callable) -> void:
 	super (_node, _ref)
-	packed_scene = _packed_scene
-	callable = _callable
+	__packed_scene__ = _packed_scene
+	__callable__ = _callable
 	pass
 
 
 func _update(_diff: int, _arg) -> void:
 	if _diff > -1:
 		# Handle incremental updates if we know the changed index
-		if ref.size() > node.get_child_count():
+		if __ref__.size() > __node__.get_child_count():
 			# Item was added - create and position new instance
-			var data = ref.value[_diff]
-			var instance = packed_scene.instantiate()
-			node.add_child(instance)
-			node.move_child(instance, _diff)
-			__bindings__.insert(_diff, callable.call(instance, data, _diff))
-		elif ref.size() < node.get_child_count():
+			var data = __ref__.value[_diff]
+			var instance = __packed_scene__.instantiate()
+			__node__.add_child(instance)
+			__node__.move_child(instance, _diff)
+			__bindings__.insert(_diff, __callable__.call(instance, data, _diff))
+		elif __ref__.size() < __node__.get_child_count():
 			for b in __bindings__[_diff]:
 				if b is Binding:
 					b.dispose()
 			__bindings__.remove_at(_diff)
 
 			# Item was removed - clean up corresponding node
-			var c = node.get_child(_diff)
-			node.remove_child(c)
+			var c = __node__.get_child(_diff)
+			__node__.remove_child(c)
 			c.queue_free()
 	else:
 		# TODO: More efficient solution
@@ -56,14 +56,14 @@ func _update(_diff: int, _arg) -> void:
 		__bindings__.clear()
 
 		# Clear existing children
-		for c in node.get_children():
-			node.remove_child(c)
+		for c in __node__.get_children():
+			__node__.remove_child(c)
 			c.queue_free()
 
 		# Create new children for all items
-		for i in ref.value.size():
-			var data = ref.value[i]
-			var instance = packed_scene.instantiate()
-			node.add_child(instance)
-			__bindings__.insert(i, callable.call(instance, data, i))
+		for i in __ref__.value.size():
+			var data = __ref__.value[i]
+			var instance = __packed_scene__.instantiate()
+			__node__.add_child(instance)
+			__bindings__.insert(i, __callable__.call(instance, data, i))
 	pass

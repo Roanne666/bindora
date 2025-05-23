@@ -9,67 +9,67 @@ class_name InputBinding extends SingleRefBinding
 ## Can bind to either direct values or object properties.
 
 ## The property name to bind to (empty for direct value binding)
-var property: String
+var __property__: String
 
 ## The detected signal type ("text_changed", "value_changed", or "color_changed")
-var signal_type: String
+var __signal_type__: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _property: String = "") -> void:
 	super (_node, _ref)
-	property = _property
+	__property__ = _property
 
 	# Detect and connect appropriate signal
 	if "text_changed" in _node:
-		signal_type = "text_changed"
+		__signal_type__ = "text_changed"
 		_node.text_changed.connect(func(): _on_text_changed())
 	elif "value_changed" in _node:
-		signal_type = "value_changed"
+		__signal_type__ = "value_changed"
 		_node.value_changed.connect(func(_value): _on_value_changed(_value))
 	elif "color_changed" in _node:
-		signal_type = "color_changed"
+		__signal_type__ = "color_changed"
 		_node.color_changed.connect(func(_value): _on_value_changed(_value))
 	else:
 		push_error("Node doesn't have signal 'text_changed' or 'value_changed'")
 
-	_update(null, ref.value)
+	_update(null, __ref__.value)
 	pass
 
 
 ## Handles text input changes
 func _on_text_changed() -> void:
-	if property:
-		if ref.value[property] != node.text:
-			ref.value[property] = node.text
+	if __property__:
+		if __ref__.value[__property__] != __node__.text:
+			__ref__.value[__property__] = __node__.text
 	else:
-		if ref.get_value() != node.text:
-			ref.set_value(node.text)
+		if __ref__.get_value() != __node__.text:
+			__ref__.set_value(__node__.text)
 	pass
 
 
 ## Handles numeric/color value changes
 func _on_value_changed(_value) -> void:
-	if property:
-		ref.value[property] = _value
+	if __property__:
+		__ref__.value[__property__] = _value
 	else:
-		ref.set_value(_value)
+		__ref__.set_value(_value)
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
 	# Handle property binding if specified
-	if property != "":
-		_new_value = _new_value[property]
+	if __property__ != "":
+		_new_value = _new_value[__property__]
 
 	# Update control based on signal type
-	match signal_type:
+	match __signal_type__:
 		"text_changed":
-			if node["text"] != str(_new_value):
-				node.set("text", str(_new_value))
+			if __node__["text"] != str(_new_value):
+				__node__.set("text", str(_new_value))
 		"value_changed":
-			if node["value"] != _new_value:
-				node.set_value_no_signal(_new_value)
+			if __node__["value"] != _new_value:
+				__node__.set_value_no_signal(_new_value)
 		"color_changed":
-			if node["color"] != _new_value:
-				node.set("color", _new_value)
+			if __node__["color"] != _new_value:
+				__node__.set("color", _new_value)
 	pass

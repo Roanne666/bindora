@@ -6,15 +6,15 @@ class_name CustomBinding extends MultiRefBinding
 
 ## The function to execute when any bound reference changes
 ## Signature: func(node: CanvasItem, refs: Array[Ref]) -> void
-var callable: Callable
+var __callable__: Callable
 
 
 func _init(_node: CanvasItem, _refs: Array[Ref], _callable: Callable) -> void:
 	super (_node, _refs)
-	callable = _callable
+	__callable__ = _callable
 	pass
 
 
 func _update(_old_value, _new_value) -> void:
-	callable.call(node, refs)
+	__callable__.call(__node__, __refs__)
 	pass
