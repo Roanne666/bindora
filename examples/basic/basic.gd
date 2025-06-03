@@ -35,7 +35,7 @@ func _ready() -> void:
 	click_ref.bind_text(button_label)
 	for i in h_box_container.get_child_count():
 		var button = h_box_container.get_child(i) as Button
-		button.pressed.connect(func(): click_ref.value=i + 1)
+		button.pressed.connect(func(): click_ref.value = i + 1)
 
 	# Nest binding.
 	max_value_ref.bind_text(slider_label)
@@ -51,7 +51,7 @@ func _ready() -> void:
 	# Custom binding, watcher and show binding.
 	custom_ref.value_updated.connect(_print_times)
 	custom_ref.bind_custom(times_button, _custom_bind)
-	custom_ref.bind_show(check_button_2, func(_value: int): return _value >= 5)
+	custom_ref.bind_visible(check_button_2, func(_value: int): return _value >= 5)
 	times_button.pressed.connect(func(): custom_ref.value += 1)
 
 	# Mouse tracking.
@@ -63,7 +63,7 @@ func _ready() -> void:
 	pass
 
 
-func _print_times(_old_value:int, _new_value: int) -> void:
+func _print_times(_old_value: int, _new_value: int) -> void:
 	print("Click %d times." % _new_value)
 	if _new_value >= 5:
 		custom_ref.value_updated.disconnect(_print_times)
