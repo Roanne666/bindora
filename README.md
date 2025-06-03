@@ -16,7 +16,7 @@ Bindora is a reactive data binding library for Godot 4.4. Based on Godot's desig
 - Provides `signal` for data monitoring
 
 ### Comprehensive Binding Support
-[`TextBinding`](bindora/binding/text_binding.gd), [`InputBinding`](bindora/binding/input_binding.gd), [`RadioBinding`](bindora/binding/radio_binding.gd), [`CheckBoxBinding`](bindora/binding/check_box_binding.gd), [`PropertyBinding`](bindora/binding/property_binding.gd), [`ShowBinding`](bindora/binding/show_binding.gd), [`ShaderBinding`](bindora/binding/shader_binding.gd), [`ToggleBinding`](bindora/binding/toggle_binding.gd), [`ListBinding`](bindora/binding/list_binding.gd), [`ThemeOverrideBinding`](bindora/binding/theme_override_binding.gd), [`CustomBinding`](bindora/binding/custom_binding.gd)
+[`TextBinding`](bindora/binding/dict_ref_binding/text_binding.gd)、[`InputBinding`](bindora/binding/single_ref_binding/input_binding.gd)、[`RadioBinding`](bindora/binding/single_ref_binding/radio_binding.gd)、[`CheckBoxBinding`](bindora/binding/single_ref_binding/check_box_binding.gd)、[`PropertyBinding`](bindora/binding/single_ref_binding/property_binding.gd)、[`VisibleBinding`](bindora/binding/single_ref_binding/visible_binding.gd)、[`ShaderBinding`](bindora/binding/dict_ref_binding/shader_binding.gd)、[`ToggleBinding`](bindora/binding/single_ref_binding/toggle_binding.gd)、[`ListBinding`](bindora/binding/single_ref_binding/list_binding.gd)、[`ThemeOverrideBinding`](bindora/binding/single_ref_binding/theme_override_binding.gd)、[`CustomBinding`](bindora/binding/multi_ref_binding/custom_binding.gd)
 
 ## Quick Start
 
@@ -144,28 +144,29 @@ extends Node
 [`RefBool`](bindora/ref/ref_variant/ref_bool.gd), [`RefInt`](bindora/ref/ref_variant/ref_int.gd), [`RefFloat`](bindora/ref/ref_variant/ref_float.gd), [`RefString`](bindora/ref/ref_variant/ref_string.gd), [`RefVector2`](bindora/ref/ref_variant/ref_vector2.gd), [`RefVector2i`](bindora/ref/ref_variant/ref_vector2i.gd), [`RefVector3`](bindora/ref/ref_variant/ref_vector3.gd), [`RefVector3i`](bindora/ref/ref_variant/ref_vector3i.gd), [`RefVector4`](bindora/ref/ref_variant/ref_vector4.gd), [`RefVector4i`](bindora/ref/ref_variant/ref_vector4i.gd), [`RefRect2`](bindora/ref/ref_variant/ref_rect2.gd), [`RefRect2i`](bindora/ref/ref_variant/ref_rect2i.gd), [`RefColor`](bindora/ref/ref_variant/ref_color.gd)
 
 Binding methods:
-- bind_text(_node: CanvasItem, _keyword: String = "value",_template: String = "") -> [TextBinding](bindora/binding/text_binding.gd)
-- bind_input(_node: CanvasItem, _property: String = "") -> [InputBinding](bindora/binding/input_binding.gd)
-- bind_multi_input(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, [InputBinding](bindora/binding/input_binding.gd)]
-- bind_property(_node: CanvasItem, _property: String, _use_node_data: bool = false) -> [PropertyBinding](bindora/binding/property_binding.gd)
-- bind_multi_property(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, [PropertyBinding](bindora/binding/property_binding.gd)]
-- bind_radios(_nodes: Array[CanvasItem]) -> Dictionary[CanvasItem, [RadioBinding](bindora/binding/radio_binding.gd)]
-- bind_radios_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, [RadioBinding](bindora/binding/radio_binding.gd)]
-- bind_shader(_node: CanvasItem, _property: String) -> [ShaderBinding](bindora/binding/shader_binding.gd)
-- bind_show(_node: CanvasItem, _callable: Callable) -> [ShowBinding](bindora/binding/show_binding.gd)
-- bind_theme_override(_node: CanvasItem, _property: String) -> [ThemeOverrideBinding](bindora/binding/theme_override_binding.gd)
-- bind_toggle(_node: CanvasItem, _opposite: bool = false) -> [ToggleBinding](bindora/binding/toggle_binding.gd)
-- bind_multi_toggle(_dict: Dictionary[CanvasItem, bool]) -> Dictionary[CanvasItem, [ToggleBinding](bindora/binding/toggle_binding.gd)]
+- bind_text(_node: CanvasItem, _keyword: String = "value",_template: String = "") -> TextBinding
+- bind_input(_node: CanvasItem, _property: String = "") -> InputBinding
+- bind_multi_input(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, InputBinding]
+- bind_property(_node: CanvasItem, _property: String, _use_node_data: bool = false) -> PropertyBinding
+- bind_multi_property(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, PropertyBinding]
+- bind_radios(_nodes: Array[CanvasItem]) -> Dictionary[CanvasItem, RadioBinding]
+- bind_radios_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, RadioBinding]
+- bind_shader(_node: CanvasItem, _property: String) -> ShaderBinding
+- bind_visible(_node: CanvasItem, _condition: Callable | Ref) -> VisibleBinding
+- bind_theme_override(_node: CanvasItem, _property: String) -> ThemeOverrideBinding
+- bind_toggle(_node: CanvasItem, _opposite: bool = false) -> ToggleBinding
+- bind_multi_toggle(_dict: Dictionary[CanvasItem, bool]) -> Dictionary[CanvasItem, ToggleBinding]
+- bind_custom(_node: CanvasItem, _callable: Callable) -> CustomBinding
 
 ### Special Types
 [`RefArray`](bindora/ref/ref_special/ref_array.gd)
-- bind_text(_node: CanvasItem, _keyword: String = "value", _template: String = "") -> [TextBinding](bindora/binding/text_binding.gd) 
-- bind_check_boxes(_nodes: Array[CanvasItem]) -> Dictionary[CanvasItem, [CheckBoxBinding](bindora/binding/check_box_binding.gd)]
-- bind_check_boxes_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, [CheckBoxBinding](bindora/binding/check_box_binding.gd)]
-- bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -> [ListBinding](bindora/binding/list_binding.gd)
+- bind_text(_node: CanvasItem, _keyword: String = "value", _template: String = "") -> TextBinding
+- bind_check_boxes(_nodes: Array[CanvasItem]) -> Dictionary[CanvasItem, CheckBoxBinding]
+- bind_check_boxes_custom(_dict: Dictionary[CanvasItem, String]) -> Dictionary[CanvasItem, CheckBoxBinding]
+- bind_list(_parent: Node, _packed_scene: PackedScene, _callable: Callable) -> ListBinding
 
 [`RefDictionary`](bindora/ref/ref_special/ref_dictionary.gd)
-- bind_text(_node: CanvasItem, _template: String = "") -> [TextBinding](bindora/binding/text_binding.gd)
+- bind_text(_node: CanvasItem, _template: String = "") -> TextBinding
 
 ### Resource Types - [`RefResource`](bindora/ref/ref_resource.gd)
 [`RefFont`](bindora/ref/ref_resource/ref_font.gd), [`RefLabelSettings`](bindora/ref/ref_resource/ref_label_settings.gd), [`RefMaterial`](bindora/ref/ref_resource/ref_material.gd), [`RefStyleBox`](bindora/ref/ref_resource/ref_style_box.gd), [`RefTexture`](bindora/ref/ref_resource/ref_texture.gd)
