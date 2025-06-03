@@ -54,9 +54,9 @@ func bind_shader(_node: CanvasItem, _property: String) -> ShaderBinding:
 	return ShaderBinding.new(_node, {_property: self})
 
 
-## Quick method for [ShowBinding].
-func bind_show(_node: CanvasItem, _callable: Callable) -> ShowBinding:
-	return ShowBinding.new(_node, self, _callable)
+## Quick method for [VisibleBinding].
+func bind_visible(_node: CanvasItem, _condition) -> VisibleBinding:
+	return VisibleBinding.new(_node, self, _condition)
 
 
 ## Quick method for [ThemeOverrideBinding].
