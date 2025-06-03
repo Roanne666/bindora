@@ -8,7 +8,6 @@ var current_scene:Node
 
 
 func _ready() -> void:
-	# TODO: fix gc.
 	button.pressed.connect(_change_scene)
 	await get_tree().create_timer(2.0).timeout
 	current_scene = BASIC.instantiate()
