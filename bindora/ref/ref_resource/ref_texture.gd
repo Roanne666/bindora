@@ -12,5 +12,5 @@ func get_value() -> Texture:
 
 
 func _init(_value: Texture = null) -> void:
-	super (_value, "Texture")
+	super(_value, "Texture")
 	pass

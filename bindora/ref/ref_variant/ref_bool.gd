@@ -11,6 +11,6 @@ func get_value() -> bool:
 	return value
 
 
-func _init(_value := bool()) -> void:
-	super (TYPE_BOOL, _value)
+func _init(_value:=bool()) -> void:
+	super(TYPE_BOOL, _value)
 	pass

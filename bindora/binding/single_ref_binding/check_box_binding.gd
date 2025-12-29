@@ -9,7 +9,7 @@ var __value__: String
 
 
 func _init(_node: CanvasItem, _ref: RefArray, _value: String) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	__value__ = _value
 	if "toggled" in _node:
 		_node.toggled.connect(func(_toggled_on: bool): _on_node_toggled(_toggled_on))

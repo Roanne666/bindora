@@ -10,7 +10,7 @@ var __template__: String
 
 
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String = "") -> void:
-	super (_node, _refs)
+	super(_node, _refs)
 	if "text" in __node__:
 		# Use existing text as template if none provided
 		__template__ = __node__.get("text") if _template.is_empty() else _template

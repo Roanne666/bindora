@@ -12,5 +12,5 @@ func get_value() -> Material:
 
 
 func _init(_value: Material = null) -> void:
-	super (_value, "Material")
+	super(_value, "Material")
 	pass

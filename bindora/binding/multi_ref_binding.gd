@@ -5,7 +5,7 @@ var __refs__: Array[Ref]
 
 
 func _init(_node: CanvasItem, _refs: Array[Ref]) -> void:
-	super (_node)
+	super(_node)
 	__refs__ = _refs
 	for r in __refs__:
 		r.value_updated.connect(_on_ref_value_changed)

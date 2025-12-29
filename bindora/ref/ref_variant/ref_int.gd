@@ -11,6 +11,6 @@ func get_value() -> int:
 	return value
 
 
-func _init(_value := int()) -> void:
-	super (TYPE_INT, _value)
+func _init(_value:=int()) -> void:
+	super(TYPE_INT, _value)
 	pass

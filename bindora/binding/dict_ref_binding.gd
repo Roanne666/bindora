@@ -5,7 +5,7 @@ var __refs__: Dictionary[String, Ref]
 
 
 func _init(_node: CanvasItem, _refs: Dictionary[String, Ref]) -> void:
-	super (_node)
+	super(_node)
 	__refs__ = _refs
 	for k in _refs:
 		_refs[k].value_updated.connect(_on_ref_value_changed)

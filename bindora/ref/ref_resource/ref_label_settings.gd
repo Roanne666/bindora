@@ -12,5 +12,5 @@ func get_value() -> LabelSettings:
 
 
 func _init(_value: LabelSettings = null) -> void:
-	super (_value, "LabelSettings")
+	super(_value, "LabelSettings")
 	pass

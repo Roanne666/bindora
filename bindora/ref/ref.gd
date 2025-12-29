@@ -70,7 +70,7 @@ func get_value() -> Variant:
 	return value
 
 
-func _init(_type: Variant.Type, _value = null) -> void:
+func _init(_type: Variant.Type, _value=null) -> void:
 	__type__ = _type
 	if _value != null:
 		value = _value

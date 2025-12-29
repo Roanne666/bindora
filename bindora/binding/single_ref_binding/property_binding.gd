@@ -10,7 +10,7 @@ var __property__: String
 func _init(
 	_node: CanvasItem, _ref: RefVariant, _property: String, _use_node_data: bool = false
 ) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	if not (_property in _node):
 		push_error("Node doesn't have property '%s'" % _property)
 	__property__ = _property

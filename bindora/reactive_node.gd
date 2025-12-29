@@ -17,7 +17,7 @@ func _init() -> void:
 func _get_property_list() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
 	for k in __refs__:
-		properties.append({"name": "__%s__"%k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT})
+		properties.append({"name": "__%s__" %k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT})
 	return properties
 
 

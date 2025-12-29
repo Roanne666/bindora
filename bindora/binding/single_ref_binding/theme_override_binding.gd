@@ -27,7 +27,7 @@ var __method__: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	for p in _node.get_property_list():
 		if not p["name"].contains("/"):
 			continue

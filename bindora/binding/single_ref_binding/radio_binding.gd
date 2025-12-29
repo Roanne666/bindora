@@ -11,10 +11,10 @@ var __value__: String
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	__value__ = _value
 	if "toggled" in _node:
-		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: __ref__.value = __value__)
+		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: __ref__.value=__value__)
 	_on_ref_value_changed(null, __ref__.value)
 	pass
 

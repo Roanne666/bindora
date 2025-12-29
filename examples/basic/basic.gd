@@ -35,7 +35,7 @@ func _ready() -> void:
 	click_ref.bind_text(button_label)
 	for i in h_box_container.get_child_count():
 		var button = h_box_container.get_child(i) as Button
-		button.pressed.connect(func(): click_ref.value = i + 1)
+		button.pressed.connect(func(): click_ref.value=i + 1)
 
 	# Nest binding.
 	max_value_ref.bind_text(slider_label)

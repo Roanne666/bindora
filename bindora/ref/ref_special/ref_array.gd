@@ -13,7 +13,7 @@ func get_value() -> Array:
 
 
 func _init(_value: Array = []) -> void:
-	super (TYPE_ARRAY, _value)
+	super(TYPE_ARRAY, _value)
 	pass
 
 

@@ -12,5 +12,5 @@ func get_value() -> StyleBox:
 
 
 func _init(_value: StyleBox = null) -> void:
-	super (_value, "StyleBox")
+	super(_value, "StyleBox")
 	pass

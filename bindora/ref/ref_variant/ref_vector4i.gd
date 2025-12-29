@@ -11,6 +11,6 @@ func get_value() -> Vector4i:
 	return value
 
 
-func _init(_value := Vector4i()) -> void:
-	super (TYPE_VECTOR4I, _value)
+func _init(_value:=Vector4i()) -> void:
+	super(TYPE_VECTOR4I, _value)
 	pass

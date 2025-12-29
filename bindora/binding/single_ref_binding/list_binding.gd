@@ -19,7 +19,7 @@ var __bindings__: Array = []
 
 
 func _init(_node: CanvasItem, _ref: RefArray, _packed_scene: PackedScene, _callable: Callable) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	__packed_scene__ = _packed_scene
 	__callable__ = _callable
 	pass

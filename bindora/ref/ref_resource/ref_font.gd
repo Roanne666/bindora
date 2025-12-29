@@ -12,5 +12,5 @@ func get_value() -> Font:
 
 
 func _init(_value: Font = null) -> void:
-	super (_value, "Font")
+	super(_value, "Font")
 	pass

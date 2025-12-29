@@ -9,7 +9,7 @@ var __condition__
 
 
 func _init(_node: CanvasItem, _ref: RefVariant, _condition) -> void:
-	super (_node, _ref)
+	super(_node, _ref)
 	if not (_condition is Ref or _condition is Callable):
 		push_error("Condition must be a Ref or Callable")
 		return
