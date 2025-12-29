@@ -22,7 +22,7 @@ func _get_property_list() -> Array[Dictionary]:
 
 
 func _set(property: StringName, value: Variant) -> bool:
-	var ref_name = property.left(-2).right(-2)
+	var ref_name = property.substr(2, property.length() - 4)
 	if ref_name in __refs__:
 		var ref = get(ref_name)
 		if ref is Ref:
@@ -32,7 +32,7 @@ func _set(property: StringName, value: Variant) -> bool:
 
 
 func _get(property: StringName) -> Variant:
-	var ref_name = property.left(-2).right(-2)
+	var ref_name = property.substr(2, property.length() - 4)
 	if ref_name in __refs__:
 		var ref = get(ref_name)
 		if ref is Ref:
