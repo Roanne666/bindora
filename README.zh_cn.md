@@ -29,19 +29,21 @@ Bindora 是一个用于 Godot 4.4 的响应式数据绑定库。它基于 Godot 
 ```gdscript
 extends Label
 
-# 声明数据并创建文本绑定
 var text_ref = RefString.new("Hello World")
-text_ref.bind_text(self)
 
-# 创建监听器
-text_ref.value_updated.connect(func(old_value,new_value):
-    print("Text changed to: %s" % new_value)
-)
+func _ready():->void:
+    # 声明数据并创建文本绑定
+    text_ref.bind_text(self)
 
-# 修改数据
-text_ref.value = "New Text"
-# 或者
-text_ref.set_value("New Text") # 推荐使用 set_value 方法，因为它会检查类型
+    # 创建监听器
+    text_ref.value_updated.connect(func(old_value,new_value):
+        print("Text changed to: %s" % new_value)
+    )
+
+    # 修改数据
+    text_ref.value = "New Text"
+    # 或者
+    text_ref.set_value("New Text") # 推荐使用 set_value 方法，因为它会检查类型
 ```
 `Ref` 类中提供了非常多的快捷绑定方法，你可以在 [API 参考](#api-参考)中查看
 
@@ -73,9 +75,11 @@ class MyResource extends ReactiveResource
 ```gdscript
 var packed_scene = preload("res://path/to/your/packed_scene.tscn")
 var array = RefArray.new()
+
 array.bind_list($Container, packed_scene, func(item, data , index):
     data.text_ref.bind_text(item)
 )
+
 for i in 3:
     var new_item = MyResource.new()
     new_item.text_ref.set_value("Item " + i)
@@ -101,7 +105,7 @@ print(new_resource.text_ref.value) # Hello World
 ```
 
 ### 更多使用方法
-参考[`test`](test)文件夹中的例子
+参考[`examples`](examples)文件夹中的例子
 
 ## 最佳实践
 
@@ -112,7 +116,7 @@ print(new_resource.text_ref.value) # Hello World
 尽量避免使用 `.value` 来操作值，它在编辑器中是没有类型检查的，可能在运行中才会报错。而使用 `set_value()` 和 `get_value()` 函数则会在编辑器阶段就进行类型检查。
 
 ### 绑定管理
-`Binding` 会自动识别节点是否存在并回收。如果需要手动回收，可以使用 `destroy()` 方法。
+`Binding` 会自动识别节点是否存在并回收。如果需要手动回收，可以使用 `_dispose()` 方法。
 
 ### 什么时候使用 `ReactiveResource`
 对于大多数情况，只使用 `Ref` 就能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好。以下为几个例子：

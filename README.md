@@ -103,7 +103,7 @@ print(new_resource.text_ref.value) # Hello World
 ```
 
 ### More Usage Examples  
-Refer to the examples in the [`test`](test) folder.
+Refer to the examples in the [`examples`](examples) folder.
 
 ## Best Practices 
 
@@ -114,7 +114,7 @@ Choose appropriate `Ref` types for your data, such as `RefString` , `RefInt` , e
 Try to avoid using `.value` to manipulate values, as it lacks type checking in the editor and may only report errors during runtime. Instead, use `set_value()` and `get_value()` functions which perform type checking at the editor stage.
 
 ### Binding Management
-`Binding` will automatically recognize whether the node exists and recycle it. If you need to manually recycle it, you can use the `destroy()` method.
+`Binding` will automatically recognize whether the node exists and recycle it. If you need to manually recycle it, you can use the `_dispose()` method.
 
 ### When to Use `ReactiveResource`
 For most cases, using `Ref` will suffice. However, in some cases, using `ReactiveResource` can provide better performance. Here are a few examples:
