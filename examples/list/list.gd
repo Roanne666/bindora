@@ -6,6 +6,7 @@ extends Control
 @onready var random_modify_button: Button = $RandomModifyButton
 @onready var reverse_items_button: Button = $ReverseItemsButton
 @onready var sort_items_button: Button = $SortItemsButton
+@onready var add_multi_items_button: Button = $AddMultiItemsButton
 @onready var label: Label = $Label
 
 const ITEM = preload("res://examples/list/item.tscn")
@@ -24,9 +25,8 @@ func _ready() -> void:
 	random_remove_button.pressed.connect(_on_random_remove_button_pressed)
 	random_modify_button.pressed.connect(_random_modify_button_pressed)
 	reverse_items_button.pressed.connect(list_ref.reverse)
-	sort_items_button.pressed.connect(
-		list_ref.sort_custom.bind(func(a: Person, b: Person): return a.uid.value < b.uid.value)
-	)
+	sort_items_button.pressed.connect(list_ref.sort_custom.bind(func(a: Person, b: Person): return a.uid.value < b.uid.value))
+	add_multi_items_button.pressed.connect(_on_add_multi_items_button_pressed)
 	pass
 
 
@@ -47,6 +47,10 @@ func _on_random_remove_button_pressed() -> void:
 		list_ref.remove_at(randi_range(0, list_ref.value.size() - 1))
 	pass
 
+func _on_add_multi_items_button_pressed() -> void:
+	for i in 1000:
+		_on_add_item_button_pressed()
+	pass
 
 # Multi ref binding.
 func _create_binding(_scene: Node, _data: Person, _index: int) -> Array[Binding]:
