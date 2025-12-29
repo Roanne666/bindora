@@ -36,25 +36,11 @@ func _update(_diff: int, _arg) -> void:
 			__node__.move_child(instance, _diff)
 			__bindings__.insert(_diff, __callable__.call(instance, data, _diff))
 		elif __ref__.size() < __node__.get_child_count():
-			for b in __bindings__[_diff]:
-				if b is Binding:
-					b.dispose()
-			__bindings__.remove_at(_diff)
-
 			# Item was removed - clean up corresponding node
 			var c = __node__.get_child(_diff)
 			__node__.remove_child(c)
 			c.queue_free()
 	else:
-		# TODO: More efficient solution
-		# Full refresh needed - rebuild entire list
-		# Clear existing bindings
-		for b in __bindings__:
-			for bb in b:
-				if bb is Binding:
-					bb.dispose()
-		__bindings__.clear()
-
 		# Clear existing children
 		for c in __node__.get_children():
 			__node__.remove_child(c)
