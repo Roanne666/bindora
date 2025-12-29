@@ -47,16 +47,17 @@ func _set_value(_new_value) -> void:
 
 ## Checks if type conversion between types is allowed
 func _type_convert_check(_new_type: int) -> bool:
-	if __type__ == TYPE_STRING:
-		if _new_type == TYPE_INT:
-			return true
-		elif _new_type == TYPE_FLOAT:
-			return true
-	elif __type__ == TYPE_INT and _new_type == TYPE_FLOAT:
-		return true
-	elif __type__ == TYPE_FLOAT and _new_type == TYPE_INT:
-		return true
-	return false
+	match __type__:
+		TYPE_STRING:
+			return _new_type in [TYPE_INT, TYPE_FLOAT, TYPE_BOOL]
+		TYPE_INT:
+			return _new_type in [TYPE_FLOAT, TYPE_BOOL]
+		TYPE_FLOAT:
+			return _new_type in [TYPE_INT, TYPE_BOOL]
+		TYPE_BOOL:
+			return _new_type in [TYPE_INT, TYPE_FLOAT]
+		_:
+			return false
 
 
 ## Sets the value with type check.
