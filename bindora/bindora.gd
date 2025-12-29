@@ -18,6 +18,9 @@ class Prop:
 static var __properties__: Array[Prop] = []
 
 static func provide(_node: Node, _property: String, _ref: Ref) -> void:
+	for prop in __properties__:
+		if prop.node == _node and prop.name == _property:
+			return
 	__properties__.append(Prop.new(_node, _property, _ref))
 	pass
 
