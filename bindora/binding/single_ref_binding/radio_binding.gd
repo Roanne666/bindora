@@ -13,8 +13,13 @@ var __value__: String
 func _init(_node: CanvasItem, _ref: RefVariant, _value: String) -> void:
 	super(_node, _ref)
 	__value__ = _value
+	
 	if "toggled" in _node:
 		_node.toggled.connect(func(_toggled_on: bool): if _toggled_on: __ref__.value=__value__)
+	else:
+		push_error("RadioBinding: Node '%s' missing 'toggled' signal" % _node.name)
+		return
+
 	_on_ref_value_changed(null, __ref__.value)
 	pass
 

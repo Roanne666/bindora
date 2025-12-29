@@ -11,8 +11,11 @@ func _init(
 	_node: CanvasItem, _ref: RefVariant, _property: String, _use_node_data: bool = false
 ) -> void:
 	super(_node, _ref)
+	
 	if not (_property in _node):
-		push_error("Node doesn't have property '%s'" % _property)
+		push_error("PropertyBinding: Node '%s' missing property '%s'" % [_node.name, _property])
+		return
+		
 	__property__ = _property
 	if _use_node_data:
 		__ref__.value = __node__.get(__property__)

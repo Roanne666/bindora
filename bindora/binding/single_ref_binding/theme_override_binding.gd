@@ -28,15 +28,18 @@ var __method__: String
 
 func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
 	super(_node, _ref)
+
 	for p in _node.get_property_list():
 		if not p["name"].contains("/"):
 			continue
 		var split_p = p["name"].split("/")
 		if split_p[1] == _property:
 			__method__ = THEME_OVERRIDE_METHODS[split_p[0]]
+
 	if not __method__:
-		push_error("%s is not a valid theme override property" % _property)
+		push_error("ThemeOverrideBinding: Node '%s' has invalid theme override property '%s'" % [_node.name, _property])
 		return
+		
 	__property__ = _property
 	_update(null, __ref__.value)
 	pass

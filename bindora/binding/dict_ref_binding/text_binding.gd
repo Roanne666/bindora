@@ -15,7 +15,7 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String 
 		# Use existing text as template if none provided
 		__template__ = __node__.get("text") if _template.is_empty() else _template
 	else:
-		push_error("Node missing required 'text' property")
+		push_error("TextBinding: Node '%s' missing 'text' property" % __node__.name)
 	_on_ref_value_changed(null, null)
 	pass
 

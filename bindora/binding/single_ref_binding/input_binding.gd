@@ -30,8 +30,9 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String = "") -> void:
 		__signal_type__ = "color_changed"
 		_node.color_changed.connect(func(_value): _on_value_changed(_value))
 	else:
-		push_error("Node doesn't have signal 'text_changed' or 'value_changed'")
-
+		push_error("InputBinding: Node '%s' missing supported signal (text_changed, value_changed, or color_changed)" % _node.name)
+		return
+		
 	_update(null, __ref__.value)
 	pass
 

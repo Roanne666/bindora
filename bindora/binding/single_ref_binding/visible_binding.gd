@@ -10,9 +10,11 @@ var __condition__
 
 func _init(_node: CanvasItem, _ref: RefVariant, _condition) -> void:
 	super(_node, _ref)
+	
 	if not (_condition is Ref or _condition is Callable):
-		push_error("Condition must be a Ref or Callable")
+		push_error("VisibleBinding: Condition must be Ref or Callable, got %s" % typeof(_condition))
 		return
+
 	__condition__ = _condition
 	_update(null, __ref__.value)
 	pass

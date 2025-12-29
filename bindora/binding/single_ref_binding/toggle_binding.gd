@@ -12,10 +12,13 @@ var __opposite__: bool
 func _init(_node: CanvasItem, _ref: RefBool, _opposite: bool = false) -> void:
 	super(_node, _ref)
 	__opposite__ = _opposite
+
 	if "toggled" in __node__:
 		__node__.toggled.connect(func(_toggled_state: bool): _on_toggled(_toggled_state))
 	else:
-		push_error("Node missing required 'toggled' signal")
+		push_error("ToggleBinding: Node '%s' missing 'toggled' signal" % _node.name)
+		return
+
 	_update(null, __ref__.value)
 	pass
 
