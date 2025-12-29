@@ -9,6 +9,7 @@ extends Control
 @onready var add_multi_items_button: Button = $AddMultiItemsButton
 @onready var label: Label = $Label
 
+
 const ITEM = preload("res://examples/list/item.tscn")
 const NAMES := ["Tom", "Jerry", "Peter"]
 
@@ -21,36 +22,55 @@ func _ready() -> void:
 	list_ref.bind_list(item_list, ITEM, _create_binding)
 	for i in 3:
 		_on_add_item_button_pressed()
-	add_item_button.pressed.connect(_on_add_item_button_pressed)
-	random_remove_button.pressed.connect(_on_random_remove_button_pressed)
-	random_modify_button.pressed.connect(_random_modify_button_pressed)
-	reverse_items_button.pressed.connect(list_ref.reverse)
-	sort_items_button.pressed.connect(list_ref.sort_custom.bind(func(a: Person, b: Person): return a.uid.value < b.uid.value))
-	add_multi_items_button.pressed.connect(_on_add_multi_items_button_pressed)
+	add_item_button.pressed.connect(_measure_performance.bind("add_single", func(): _on_add_item_button_pressed()))
+	random_remove_button.pressed.connect(_measure_performance.bind("remove", func(): _on_random_remove_button_pressed()))
+	random_modify_button.pressed.connect(_measure_performance.bind("modify", func(): _random_modify_button_pressed()))
+	reverse_items_button.pressed.connect(_measure_performance.bind("reverse", func(): list_ref.reverse()))
+	sort_items_button.pressed.connect(_measure_performance.bind("sort", func(): list_ref.sort_custom(func(a: Person, b: Person): return a.uid.value < b.uid.value)))
+	add_multi_items_button.pressed.connect(_measure_performance.bind("add_1000", func(): _on_add_multi_items_button_pressed()))
 	pass
+
+
+func _measure_performance(operation_name: String, operation: Callable) -> void:
+	var start_time = Time.get_ticks_msec()
+	var start_count = list_ref.value.size()
+
+	# Execute the operation
+	if operation.is_valid():
+		operation.call()
+
+	var end_time = Time.get_ticks_msec()
+	var end_count = list_ref.value.size()
+	var duration = end_time - start_time
+
+	# Print performance data
+	print("=== PERFORMANCE: %s ===" % operation_name)
+	print("Duration: %d ms" % duration)
+	print("Items before: %d" % start_count)
+	print("Items after: %d" % end_count)
+	print("Time per item: %.2f ms" % (float(duration) / max(1, abs(end_count - start_count)) if end_count != start_count else float(duration) / max(1, start_count)))
+	print("")
 
 
 func _on_add_item_button_pressed() -> void:
 	list_ref.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
-	pass
 
 
 func _random_modify_button_pressed() -> void:
-	var person = list_ref.value.pick_random() as Person
-	person.full_name.value = NAMES.pick_random()
-	person.age.value = randi_range(20, 40)
-	pass
+	if list_ref.value.size() > 0:
+		var person = list_ref.value.pick_random() as Person
+		person.full_name.value = NAMES.pick_random()
+		person.age.value = randi_range(20, 40)
 
 
 func _on_random_remove_button_pressed() -> void:
 	if list_ref.value.size() > 0:
 		list_ref.remove_at(randi_range(0, list_ref.value.size() - 1))
-	pass
+
 
 func _on_add_multi_items_button_pressed() -> void:
 	for i in 1000:
-		_on_add_item_button_pressed()
-	pass
+		list_ref.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
 
 # Multi ref binding.
 func _create_binding(_scene: Node, _data: Person, _index: int) -> Array[Binding]:
