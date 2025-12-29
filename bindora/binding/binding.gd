@@ -29,6 +29,7 @@ func _update(_old_value, _new_value) -> void:
 
 ## Cleans up the binding resources
 func _dispose() -> void:
-	__node__.tree_exiting.disconnect(_dispose)
+	if __node__ and __node__.tree_exiting.is_connected(_dispose):
+		__node__.tree_exiting.disconnect(_dispose)
 	call_deferred("free")
 	pass
