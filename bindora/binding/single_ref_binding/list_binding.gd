@@ -41,15 +41,27 @@ func _update(_diff: int, _arg) -> void:
 			__node__.remove_child(c)
 			c.queue_free()
 	else:
-		# Clear existing children
-		for c in __node__.get_children():
-			__node__.remove_child(c)
-			c.queue_free()
+		var index_mapping = _arg
+		var current_children = __node__.get_children()
 
-		# Create new children for all items
-		for i in __ref__.value.size():
-			var data = __ref__.value[i]
-			var instance = __packed_scene__.instantiate()
-			__node__.add_child(instance)
-			__bindings__.insert(i, __callable__.call(instance, data, i))
+		var reordered_children = []
+		reordered_children.resize(current_children.size())
+
+		for old_index in index_mapping:
+			var new_index = index_mapping[old_index]
+			reordered_children[new_index] = current_children[old_index]
+
+		var reordered_bindings = []
+		reordered_bindings.resize(__bindings__.size())
+
+		for old_index in index_mapping:
+			var new_index = index_mapping[old_index]
+			reordered_bindings[new_index] = __bindings__[old_index]
+
+		for i in range(reordered_children.size()):
+			if reordered_children[i]:
+				__node__.move_child(reordered_children[i], i)
+				reordered_bindings[i] = __callable__.call(reordered_children[i], __ref__.value[i], i)
+
+		__bindings__ = reordered_bindings
 	pass

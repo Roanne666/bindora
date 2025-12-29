@@ -100,27 +100,44 @@ func remove_at(_position: int) -> void:
 	pass
 
 
+## Creates a mapping of old indices to new indices after array reordering
+func _create_index_mapping(_old_value: Array, _new_value: Array) -> Dictionary:
+	var index_mapping = {}
+	for i in range(_old_value.size()):
+		var new_index = _new_value.find(_old_value[i])
+		index_mapping[i] = new_index
+	return index_mapping
+
+
 func reverse() -> void:
+	var old_value = value.duplicate()
 	value.reverse()
-	value_updated.emit(-1, value)
+	var index_mapping = _create_index_mapping(old_value, value)
+	value_updated.emit(-1, index_mapping)
 	pass
 
 
 func sort() -> void:
+	var old_value = value.duplicate()
 	value.sort()
-	value_updated.emit(-1, value)
+	var index_mapping = _create_index_mapping(old_value, value)
+	value_updated.emit(-1, index_mapping)
 	pass
 
 
 func sort_custom(_callable: Callable) -> void:
+	var old_value = value.duplicate()
 	value.sort_custom(_callable)
-	value_updated.emit(-1, value)
+	var index_mapping = _create_index_mapping(old_value, value)
+	value_updated.emit(-1, index_mapping)
 	pass
 
 
 func shuffle() -> void:
+	var old_value = value.duplicate()
 	value.shuffle()
-	value_updated.emit(-1, value)
+	var index_mapping = _create_index_mapping(old_value, value)
+	value_updated.emit(-1, index_mapping)
 	pass
 
 
