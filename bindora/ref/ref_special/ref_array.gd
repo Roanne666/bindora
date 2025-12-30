@@ -100,45 +100,65 @@ func remove_at(_position: int) -> void:
 	pass
 
 
+func replace_at(_position: int, _value) -> void:
+	value[_position] = _value
+	value_updated.emit(_position, _value)
+	pass
+
+
 ## Creates a mapping of old indices to new indices after array reordering
 func _create_index_mapping(_old_value: Array, _new_value: Array) -> Dictionary:
 	var index_mapping = {}
-	for i in range(_old_value.size()):
-		var new_index = _new_value.find(_old_value[i])
-		index_mapping[i] = new_index
+	var value_to_old_indices = {}
+
+	for i in _old_value.size():
+		var val = _old_value[i]
+		if not value_to_old_indices.has(val):
+			value_to_old_indices[val] = []
+		value_to_old_indices[val].append(i)
+
+	for new_index in _new_value.size():
+		var val = _new_value[new_index]
+		var old_indices = value_to_old_indices[val]
+		var old_index = old_indices.pop_front()
+		index_mapping[old_index] = new_index
+
 	return index_mapping
 
 
 func reverse() -> void:
-	var old_value = value.duplicate()
+	var value_size = value.size()
+	var index_mapping = {}
+
+	for i in value_size:
+		index_mapping[i] = value_size - 1 - i
+
 	value.reverse()
-	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-	pass
 
 
 func sort() -> void:
-	var old_value = value.duplicate()
+	var old_value = value.map(func(v): return v) as Array
+
 	value.sort()
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-	pass
 
 
 func sort_custom(_callable: Callable) -> void:
-	var old_value = value.duplicate()
+	var old_value = value.map(func(v): return v) as Array
+
 	value.sort_custom(_callable)
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-	pass
 
 
 func shuffle() -> void:
-	var old_value = value.duplicate()
+	var old_value = value.map(func(v): return v) as Array
+
 	value.shuffle()
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-	pass
 
 
 func size() -> int:
