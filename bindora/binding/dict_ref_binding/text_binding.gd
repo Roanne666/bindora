@@ -31,7 +31,7 @@ func _update(_old_value, _new_value) -> void:
 	# Only update if text actually changed
 	if __node__.text != output_text:
 		__node__.text = output_text
-
+	pass
 
 func _dispose() -> void:
 	super._dispose()

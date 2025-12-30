@@ -35,7 +35,7 @@ func _dispose() -> void:
 	__bindings__.clear()
 	__node_pool__.clear()
 	super._dispose()
-
+	pass
 
 func _get_or_create_node() -> Node:
 	if __node_pool__.is_empty():
@@ -45,7 +45,7 @@ func _get_or_create_node() -> Node:
 
 func _recycle_node(node: Node) -> void:
 	__node_pool__.push_back(node)
-
+	pass
 
 func _update(diff: int, arg) -> void:
 	if diff > -1:

@@ -20,7 +20,7 @@ func _on_ref_value_changed(_old_value, _new_value) -> void:
 		_dispose()
 	else:
 		_update(_old_value, _new_value)
-
+	pass
 
 ## Updates the binding with a new value
 func _update(_old_value, _new_value) -> void:

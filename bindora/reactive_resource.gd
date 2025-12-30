@@ -47,7 +47,7 @@ func _init() -> void:
 		var ref = get(p["name"])
 		if ref is Ref:
 			__refs__.set(p["name"], ref.__type__)
-
+	pass
 
 func _get_property_list() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []

@@ -135,31 +135,28 @@ func reverse() -> void:
 
 	value.reverse()
 	value_updated.emit(-1, index_mapping)
-
+	pass
 
 func sort() -> void:
 	var old_value = value.map(func(v): return v) as Array
-
 	value.sort()
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-
+	pass
 
 func sort_custom(_callable: Callable) -> void:
 	var old_value = value.map(func(v): return v) as Array
-
 	value.sort_custom(_callable)
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-
+	pass
 
 func shuffle() -> void:
 	var old_value = value.map(func(v): return v) as Array
-
 	value.shuffle()
 	var index_mapping = _create_index_mapping(old_value, value)
 	value_updated.emit(-1, index_mapping)
-
+	pass
 
 func size() -> int:
 	return value.size()
