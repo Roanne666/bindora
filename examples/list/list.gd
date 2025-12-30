@@ -7,6 +7,7 @@ extends Control
 @onready var reverse_items_button: Button = $ReverseItemsButton
 @onready var sort_items_button: Button = $SortItemsButton
 @onready var add_multi_items_button: Button = $AddMultiItemsButton
+@onready var set_new_array_button: Button = $SetNewArrayButton
 @onready var label: Label = $Label
 
 
@@ -19,15 +20,17 @@ var list_ref := RefArray.new()
 func _ready() -> void:
 	Person.uuid.bind_text(label)
 	# RefList
-	list_ref.bind_list(item_list, ITEM, _create_binding)
 	for i in 3:
 		_on_add_item_button_pressed()
+	list_ref.bind_list(item_list, ITEM, _create_binding)
+
 	add_item_button.pressed.connect(_measure_performance.bind("add_single", func(): _on_add_item_button_pressed()))
 	random_remove_button.pressed.connect(_measure_performance.bind("remove", func(): _on_random_remove_button_pressed()))
 	random_modify_button.pressed.connect(_measure_performance.bind("modify", func(): _random_modify_button_pressed()))
 	reverse_items_button.pressed.connect(_measure_performance.bind("reverse", func(): list_ref.reverse()))
 	sort_items_button.pressed.connect(_measure_performance.bind("sort", func(): list_ref.sort_custom(func(a: Person, b: Person): return a.uid.value < b.uid.value)))
 	add_multi_items_button.pressed.connect(_measure_performance.bind("add_1000", func(): _on_add_multi_items_button_pressed()))
+	set_new_array_button.pressed.connect(_measure_performance.bind("set_new_array",func():_on_set_new_array_button_pressed()))
 	pass
 
 
@@ -71,6 +74,12 @@ func _on_random_remove_button_pressed() -> void:
 func _on_add_multi_items_button_pressed() -> void:
 	for i in 1000:
 		list_ref.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
+
+func _on_set_new_array_button_pressed()->void:
+	var new_value :Array[Person]= []
+	for i in 1000:
+		new_value.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
+	list_ref.set_value(new_value)
 
 # Multi ref binding.
 func _create_binding(_scene: Node, _data: Person, _index: int) -> Array[Binding]:

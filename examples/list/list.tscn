@@ -47,14 +47,6 @@ offset_right = 349.0
 offset_bottom = 190.0
 text = "Reverse items"
 
-[node name="AddMultiItemsButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 160.0
-offset_top = 244.0
-offset_right = 349.0
-offset_bottom = 275.0
-text = "Add Multi items"
-
 [node name="SortItemsButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 160.0
@@ -63,10 +55,26 @@ offset_right = 349.0
 offset_bottom = 232.0
 text = "Sort items"
 
+[node name="AddMultiItemsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 244.0
+offset_right = 349.0
+offset_bottom = 275.0
+text = "Add Multi items"
+
+[node name="SetNewArrayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 286.0
+offset_right = 349.0
+offset_bottom = 317.0
+text = "Set new array"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 165.0
-offset_top = 300.0
-offset_right = 427.0
-offset_bottom = 323.0
+offset_left = 373.0
+offset_top = 42.0
+offset_right = 635.0
+offset_bottom = 65.0
 text = "You haved created {{value}} items"
