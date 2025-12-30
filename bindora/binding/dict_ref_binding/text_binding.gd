@@ -16,6 +16,7 @@ func _init(_node: CanvasItem, _refs: Dictionary[String, Ref], _template: String 
 		__template__ = __node__.get("text") if _template.is_empty() else _template
 	else:
 		push_error("TextBinding: Node '%s' missing 'text' property" % __node__.name)
+		return
 	_on_ref_value_changed(null, null)
 	pass
 
@@ -30,3 +31,10 @@ func _update(_old_value, _new_value) -> void:
 	# Only update if text actually changed
 	if __node__.text != output_text:
 		__node__.text = output_text
+
+
+func _dispose() -> void:
+	super._dispose()
+	if __node__ and "text" in __node__:
+		__node__.text = __template__
+	pass
