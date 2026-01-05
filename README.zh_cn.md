@@ -14,7 +14,7 @@ Bindora 是一个用于 Godot 4.x 的响应式数据绑定库。它基于 Godot 
 - 支持序列化和反序列化
 - 自动类型转换和检查
 - 以 `信号` 的方式进行数据监控
-  
+
 ### 丰富的绑定支持
 [`文本绑定`](addons/bindora/binding/dict_ref_binding/text_binding.gd)、[`输入绑定`](addons/bindora/binding/single_ref_binding/input_binding.gd)、[`单选框绑定`](addons/bindora/binding/single_ref_binding/radio_binding.gd)、[`复选框绑定`](addons/bindora/binding/single_ref_binding/check_box_binding.gd)、[`属性绑定`](addons/bindora/binding/single_ref_binding/property_binding.gd)、[`显示绑定`](addons/bindora/binding/single_ref_binding/visible_binding.gd)、[`着色器绑定`](addons/bindora/binding/dict_ref_binding/shader_binding.gd)、[`切换绑定`](addons/bindora/binding/single_ref_binding/toggle_binding.gd)、[`列表绑定`](addons/bindora/binding/single_ref_binding/list_binding.gd)、[`主题覆盖绑定`](addons/bindora/binding/single_ref_binding/theme_override_binding.gd)、[`自定义绑定器`](addons/bindora/binding/multi_ref_binding/custom_binding.gd)
 

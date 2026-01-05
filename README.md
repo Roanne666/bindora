@@ -102,10 +102,10 @@ var new_resource = ReactiveResource.reactive(dict,MyResource)
 print(new_resource.text_ref.value) # Hello World
 ```
 
-### More Usage Examples  
+### More Usage Examples
 Refer to the examples in the [`examples`](examples) folder.
 
-## Best Practices 
+## Best Practices
 
 ### Type Selection
 Choose appropriate `Ref` types for your data, such as `RefString` , `RefInt` , etc. Avoid directly using `Ref` or other base classes to create variables.
