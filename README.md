@@ -60,37 +60,84 @@ func _ready():->void:
     var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
 ```
 
-### Using `ReactiveResource`
+### Using `ReactiveResource` and `ReactiveNode`
 
-Create a resource class that extends `ReactiveResource` and declare `Ref` variables within it.
+`ReactiveResource` and `ReactiveNode` are two reactive container classes that allow you to declare `Ref` variables within them and automatically expose the values of these variables in the editor.
 
 > [!NOTE]
-> `Ref` variables declared in `ReactiveResource` do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
+> `Ref` variables declared in these two classes do not need to be exported with `@export`. They are automatically handled and exported upon declaration. Using `@export` may cause unexpected errors.
+
+#### Differences Between Them
+
+- **`ReactiveResource`**: Inherits from `Resource`, suitable for data resources. Can be saved as resource files, ideal for configuration data, game data, and other scenarios that require persistence. Provides static methods `serialize()` and `reactive()` for serialization and deserialization.
+- **`ReactiveNode`**: Inherits from `Node`, suitable for scene nodes. Can be used directly in the scene tree, ideal for reactive components that require node functionality.
+
+#### Basic Usage
+
+**Using `ReactiveResource`:**
 ```gdscript
 class MyResource extends ReactiveResource
     var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
 ```
 
-Using with `RefArray`.
+**Using `ReactiveNode`:**
 ```gdscript
-var packed_scene = preload("res://path/to/your/packed_scene.tscn")
-var array = RefArray.new()
-array.bind_list($Container, packed_scene, func(item, data , index):
-    data.text_ref.bind_text(item)
-)
-for i in 3:
-    var new_item = MyResource.new()
-    new_item.text_ref.set_value("Item " + i)
-    array.append(new_item)
+@tool
+class_name WeaponNode
+extends ReactiveNode
+
+var text_ref := RefString.new("")
+var damage_ref := RefInt.new(10)
+
+@onready var label: Label = $Label
+
+func _ready() -> void:
+    if Engine.is_editor_hint():
+        return
+    text_ref.bind_text(label)
 ```
 
-The `ReactiveResource` class provides serialization and deserialization functionality. You can use `to_dictionary` to convert it to a dictionary, or use `from_dictionary` to update values from a dictionary.
+#### Serialization and Deserialization
+
+Both provide `to_dictionary()` and `from_dictionary()` methods:
+
 ```gdscript
+# ReactiveResource example
 var resource = MyResource.new()
 var dict = resource.to_dictionary()
 dict["text_ref"] = "New Text"
 resource.from_dictionary(dict)
 print(resource.text_ref.value) # New Text
+
+# ReactiveNode example
+extends Control
+
+@export var weapon_node: WeaponNode
+
+func _ready() -> void:
+    var dict = weapon_node.to_dictionary()
+    dict["text_ref"] = "New Weapon Name"
+    weapon_node.from_dictionary(dict)
+    print(weapon_node.text_ref.value) # New Weapon Name
+```
+
+#### Using with `RefArray`
+
+`ReactiveResource` is particularly suitable for use with `RefArray`:
+
+```gdscript
+var packed_scene = preload("res://path/to/your/packed_scene.tscn")
+var array = RefArray.new()
+
+array.bind_list($Container, packed_scene, func(item, data, index):
+    data.text_ref.bind_text(item)
+)
+
+for i in 3:
+    var new_item = MyResource.new()
+    new_item.text_ref.set_value("Item " + str(i))
+    array.append(new_item)
 ```
 
 The `ReactiveResource` class also provides static serialization and deserialization methods, which can be used as follows:
@@ -116,15 +163,33 @@ Try to avoid using `.value` to manipulate values, as it lacks type checking in t
 ### Binding Management
 `Binding` will automatically recognize whether the node exists and recycle it. If you need to manually recycle it, you can use the `_dispose()` method.
 
-### When to Use `ReactiveResource`
-For most cases, using `Ref` will suffice. However, in some cases, using `ReactiveResource` can provide better performance. Here are a few examples:
-1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). `ReactiveResource` 's automatic export feature can avoid this situation.
-2. For content that needs serialization and deserialization, `ReactiveResource` can be transformed directly using built-in functions without additional operations.
-3. When you want to use `RefDictionary`, you can use `ReactiveResource` instead, as it provides better type checking and autocomplete.
+### When to Use `ReactiveResource` and `ReactiveNode`
+
+For most cases, using `Ref` will suffice. However, in some cases, using `ReactiveResource` or `ReactiveNode` can provide better performance.
+
+**Scenarios for using `ReactiveResource`:**
+1. Data that needs to be saved and loaded as resource files (such as configuration, game data, etc.)
+2. Data structures that need to be used with `RefArray`
+3. Scenarios that require static serialization methods to create new instances
+4. When you want to use `RefDictionary`, you can use `ReactiveResource` instead, as it provides better type checking and autocomplete
+
+**Scenarios for using `ReactiveNode`:**
+1. Reactive components that need to be used directly in the scene tree
+2. Reactive classes that require node functionality (such as `_ready()`, `_process()`, etc.)
+3. Scenarios that require directly editing node properties in the editor
+
+**Common advantages:**
+1. When using `@export` to export properties, numerous `Ref` properties can make the inspector complex and unintuitive (because exported properties are wrapped). The automatic export feature of these two classes can avoid this situation.
+2. For content that needs serialization and deserialization, you can use built-in functions to directly transform them without additional operations.
 
 ```gdscript
-# Recommended
+# Recommended - ReactiveResource (for data resources)
 class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
+
+# Recommended - ReactiveNode (for scene nodes)
+class MyNode extends ReactiveNode
     var text_ref = RefString.new("Hello World")
     var number_ref = RefInt.new(1)
 

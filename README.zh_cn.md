@@ -60,48 +60,84 @@ func _ready():->void:
     var binding = TextBinding.new(self, {"value": text_ref, "value2": text_ref2}, "Text is {{value}} {{value2}}")
 ```
 
-### 使用 `ReactiveResource`
-创建一个资源类，继承 `ReactiveResource`，然后在其中声明 `Ref` 变量。
+### 使用 `ReactiveResource` 和 `ReactiveNode`
+
+`ReactiveResource` 和 `ReactiveNode` 是两个响应式容器类，它们允许你在类中声明 `Ref` 变量，并自动在编辑器中暴露这些变量的值。
 
 > [!NOTE]
-> 在 `ReactiveResource` 中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
+> 在这两个类中声明的 `Ref` 变量不需要通过 `@export` 导出，它们在声明时会被自动处理并导出，使用 `@export` 可能会引起未知错误。
 
+#### 两者的区别
+
+- **`ReactiveResource`**：继承自 `Resource`，适用于数据资源。可以作为资源文件保存，适合用于配置数据、游戏数据等需要持久化的场景。提供了静态方法 `serialize()` 和 `reactive()` 用于序列化和反序列化。
+- **`ReactiveNode`**：继承自 `Node`，适用于场景节点。可以直接在场景树中使用，适合用于需要节点功能的响应式组件。
+
+#### 基础用法
+
+**使用 `ReactiveResource`：**
 ```gdscript
 class MyResource extends ReactiveResource
     var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
 ```
 
-结合 `RefArray` 使用。
+**使用 `ReactiveNode`：**
 ```gdscript
-var packed_scene = preload("res://path/to/your/packed_scene.tscn")
-var array = RefArray.new()
+@tool
+class_name WeaponNode
+extends ReactiveNode
 
-array.bind_list($Container, packed_scene, func(item, data , index):
-    data.text_ref.bind_text(item)
-)
+var text_ref := RefString.new("")
+var damage_ref := RefInt.new(10)
 
-for i in 3:
-    var new_item = MyResource.new()
-    new_item.text_ref.set_value("Item " + i)
-    array.append(new_item)
+@onready var label: Label = $Label
+
+func _ready() -> void:
+    if Engine.is_editor_hint():
+        return
+    text_ref.bind_text(label)
 ```
 
-`ReactiveResource` 类中提供了序列化和反序列化的功能，你可以使用 `to_dictionary` 将其转换为字典，或者使用 `from_dictionary` 从字典更新值。
+#### 序列化和反序列化
+
+两者都提供了 `to_dictionary()` 和 `from_dictionary()` 方法：
+
 ```gdscript
+# ReactiveResource 示例
 var resource = MyResource.new()
 var dict = resource.to_dictionary()
 dict["text_ref"] = "New Text"
 resource.from_dictionary(dict)
 print(resource.text_ref.value) # New Text
+
+# ReactiveNode 示例
+extends Control
+
+@export var weapon_node: WeaponNode
+
+func _ready() -> void:
+    var dict = weapon_node.to_dictionary()
+    dict["text_ref"] = "New Weapon Name"
+    weapon_node.from_dictionary(dict)
+    print(weapon_node.text_ref.value) # New Weapon Name
 ```
 
-`ReactiveResource` 类也提供了静态的序列化和反序列化方法，用法如下：
+#### 结合 `RefArray` 使用
+
+`ReactiveResource` 特别适合与 `RefArray` 结合使用：
+
 ```gdscript
-var resource = MyResource.new()
-resource.text_ref.set_value("Hello World")
-var dict = ReactiveResource.serialize(resource)
-var new_resource = ReactiveResource.reactive(dict,MyResource)
-print(new_resource.text_ref.value) # Hello World
+var packed_scene = preload("res://path/to/your/packed_scene.tscn")
+var array = RefArray.new()
+
+array.bind_list($Container, packed_scene, func(item, data, index):
+    data.text_ref.bind_text(item)
+)
+
+for i in 3:
+    var new_item = MyResource.new()
+    new_item.text_ref.set_value("Item " + str(i))
+    array.append(new_item)
 ```
 
 ### 更多使用方法
@@ -118,15 +154,33 @@ print(new_resource.text_ref.value) # Hello World
 ### 绑定管理
 `Binding` 会自动识别节点是否存在并回收。如果需要手动回收，可以使用 `_dispose()` 方法。
 
-### 什么时候使用 `ReactiveResource`
-对于大多数情况，只使用 `Ref` 就能满足要求，但是在一些情况下使用 `ReactiveResource` 会表现得更好。以下为几个例子：
-1. 在使用 `@export` 导出属性时，大量的 `Ref` 会使检查器变得复杂且不直观（因为导出的属性会包装一层），而 `ReactiveResource` 的自动导出功能可以避免这种情况。
-2. 对于需要序列化和反序列化的内容，`ReactiveResource` 可以使用自带函数直接转化，不需要额外操作。
-3. 当你想用 `RefDictionary` 时，可以使用 `ReactiveResource` 来替代，因为它可以提供更好的类型检查和自动补全。
+### 什么时候使用 `ReactiveResource` 和 `ReactiveNode`
+
+对于大多数情况，只使用 `Ref` 就能满足要求，但是在一些情况下使用 `ReactiveResource` 或 `ReactiveNode` 会表现得更好。
+
+**使用 `ReactiveResource` 的场景：**
+1. 需要作为资源文件保存和加载的数据（如配置、游戏数据等）
+2. 需要与 `RefArray` 结合使用的数据结构
+3. 需要静态序列化方法创建新实例的场景
+4. 当你想用 `RefDictionary` 时，可以使用 `ReactiveResource` 来替代，因为它可以提供更好的类型检查和自动补全
+
+**使用 `ReactiveNode` 的场景：**
+1. 需要在场景树中直接使用的响应式组件
+2. 需要节点功能（如 `_ready()`、`_process()` 等）的响应式类
+3. 需要在编辑器中直接编辑节点属性的场景
+
+**共同优势：**
+1. 在使用 `@export` 导出属性时，大量的 `Ref` 会使检查器变得复杂且不直观（因为导出的属性会包装一层），而这两个类的自动导出功能可以避免这种情况
+2. 对于需要序列化和反序列化的内容，可以使用自带函数直接转化，不需要额外操作
 
 ```gdscript
-# 推荐使用
+# 推荐使用 - ReactiveResource（用于数据资源）
 class MyResource extends ReactiveResource
+    var text_ref = RefString.new("Hello World")
+    var number_ref = RefInt.new(1)
+
+# 推荐使用 - ReactiveNode（用于场景节点）
+class MyNode extends ReactiveNode
     var text_ref = RefString.new("Hello World")
     var number_ref = RefInt.new(1)
 
