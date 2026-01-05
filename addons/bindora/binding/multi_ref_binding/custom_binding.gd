@@ -1,4 +1,5 @@
-class_name CustomBinding extends MultiRefBinding
+class_name CustomBinding
+extends MultiRefBinding
 ## Custom binding that executes a provided function when referenced values change
 ##
 ## This binding allows for custom behavior when any of the watched references update.

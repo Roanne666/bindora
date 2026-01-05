@@ -1,5 +1,11 @@
 @tool
-class_name RefMaterial extends RefResource
+class_name RefMaterial
+extends RefResource
+
+
+func _init(_value: Material = null) -> void:
+	super(_value, "Material")
+	pass
 
 
 func set_value(_value: Material) -> void:
@@ -9,8 +15,3 @@ func set_value(_value: Material) -> void:
 
 func get_value() -> Material:
 	return value
-
-
-func _init(_value: Material = null) -> void:
-	super(_value, "Material")
-	pass

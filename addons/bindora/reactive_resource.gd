@@ -1,5 +1,6 @@
 @tool
-class_name ReactiveResource extends Resource
+class_name ReactiveResource
+extends Resource
 ## A resource that can be serialized and deserialized.
 ##
 ## Usage:
@@ -12,7 +13,7 @@ class_name ReactiveResource extends Resource
 
 const __FLAGS__ = PROPERTY_USAGE_SCRIPT_VARIABLE
 
-var __refs__: Dictionary[String, Variant.Type] = {}
+var __refs__: Dictionary[String, Variant.Type] = { }
 
 
 ## Deserializes a [Dictionary] into a [ReactiveResource].
@@ -31,7 +32,7 @@ static func reactive(_dict: Dictionary, _class) -> ReactiveResource:
 
 ## Serialize a [ReactiveResource] into a [Dictionary].
 static func serialize(_obj: ReactiveResource) -> Dictionary:
-	var dict := {}
+	var dict := { }
 	for prop in _obj.get_property_list():
 		if prop.usage & __FLAGS__ > 0:
 			var value = _obj.get(prop.name)
@@ -42,18 +43,28 @@ static func serialize(_obj: ReactiveResource) -> Dictionary:
 
 
 func _init() -> void:
-	__refs__ = {}
+	__refs__ = { }
 	for p in get_property_list():
 		var ref = get(p["name"])
 		if ref is Ref:
 			__refs__.set(p["name"], ref.__type__)
 	pass
 
+
 func _get_property_list() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
 	for k in __refs__:
-		properties.append({"name": "__%s__" %k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT})
+		properties.append({ "name": "__%s__" % k, "type": __refs__[k], "usage": PROPERTY_USAGE_DEFAULT })
 	return properties
+
+
+func _get(property: StringName) -> Variant:
+	var ref_name = property.substr(2, property.length() - 4)
+	if ref_name in __refs__:
+		var ref = get(ref_name)
+		if ref is Ref:
+			return ref.value
+	return null
 
 
 func _set(property: StringName, value: Variant) -> bool:
@@ -66,18 +77,9 @@ func _set(property: StringName, value: Variant) -> bool:
 	return false
 
 
-func _get(property: StringName) -> Variant:
-	var ref_name = property.substr(2, property.length() - 4)
-	if ref_name in __refs__:
-		var ref = get(ref_name)
-		if ref is Ref:
-			return ref.value
-	return null
-
-
 ## Serialize self into a dictionary.
 func to_dictionary() -> Dictionary:
-	var dict := {}
+	var dict := { }
 	for prop in get_property_list():
 		if prop["name"] == "__refs__":
 			continue

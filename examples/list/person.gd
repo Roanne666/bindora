@@ -1,4 +1,5 @@
-class_name Person extends RefCounted
+class_name Person
+extends RefCounted
 
 static var uuid := RefInt.new()
 

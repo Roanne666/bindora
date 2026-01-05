@@ -1,7 +1,9 @@
 extends Control
 
 @export var item := ItemResource.new()
+
 @onready var label: Label = $Label
+
 
 func _ready() -> void:
 	item.quantity.bind_text(label)

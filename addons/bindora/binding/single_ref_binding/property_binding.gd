@@ -1,4 +1,5 @@
-class_name PropertyBinding extends SingleRefBinding
+class_name PropertyBinding
+extends SingleRefBinding
 ## Property binding that synchronizes a node property with a reference value
 ##
 ## Binds a specific node property to a reference value, keeping them in sync.
@@ -8,14 +9,17 @@ var __property__: String
 
 
 func _init(
-	_node: CanvasItem, _ref: RefVariant, _property: String, _use_node_data: bool = false
+		_node: CanvasItem,
+		_ref: RefVariant,
+		_property: String,
+		_use_node_data: bool = false,
 ) -> void:
 	super(_node, _ref)
-	
+
 	if not (_property in _node):
 		push_error("PropertyBinding: Node '%s' missing property '%s'" % [_node.name, _property])
 		return
-		
+
 	__property__ = _property
 	if _use_node_data:
 		__ref__.value = __node__.get(__property__)

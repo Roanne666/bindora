@@ -1,5 +1,11 @@
 @tool
-class_name RefVector3 extends RefVariant
+class_name RefVector3
+extends RefVariant
+
+
+func _init(_value := Vector3()) -> void:
+	super(TYPE_VECTOR3, _value)
+	pass
 
 
 func set_value(_value: Vector3) -> void:
@@ -9,8 +15,3 @@ func set_value(_value: Vector3) -> void:
 
 func get_value() -> Vector3:
 	return value
-
-
-func _init(_value:=Vector3()) -> void:
-	super(TYPE_VECTOR3, _value)
-	pass

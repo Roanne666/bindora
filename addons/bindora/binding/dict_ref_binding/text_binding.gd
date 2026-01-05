@@ -1,4 +1,5 @@
-class_name TextBinding extends DictRefBinding
+class_name TextBinding
+extends DictRefBinding
 ## Text binding with template interpolation for dynamic text content
 ##
 ## Binds multiple references to a text node with template replacement.
@@ -32,6 +33,7 @@ func _update(_old_value, _new_value) -> void:
 	if __node__.text != output_text:
 		__node__.text = output_text
 	pass
+
 
 func _dispose() -> void:
 	super._dispose()

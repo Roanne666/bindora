@@ -1,4 +1,5 @@
-class_name SingleRefBinding extends Binding
+class_name SingleRefBinding
+extends Binding
 ## A binding that monitors a single reference
 
 var __ref__: Ref
@@ -12,6 +13,9 @@ func _init(_node: CanvasItem, _ref: Ref) -> void:
 
 
 func _dispose() -> void:
+	if not is_instance_valid(__ref__):
+		return
 	__ref__.value_updated.disconnect(_on_ref_value_changed)
+	__ref__ = null
 	super._dispose()
 	pass

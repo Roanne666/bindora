@@ -1,4 +1,5 @@
-class_name ListBinding extends SingleRefBinding
+class_name ListBinding
+extends SingleRefBinding
 ## List binding implementation similar to v-for functionality
 ##
 ## Dynamically manages a list of nodes based on an array reference.
@@ -10,13 +11,10 @@ class_name ListBinding extends SingleRefBinding
 
 ## The scene template to instantiate for each list item
 var __packed_scene__: PackedScene
-
 ## The callback function to configure each new item
 ## Signature: func(instance: Node, data: Variant, index: int) -> void
 var __callable__: Callable
-
 var __bindings__: Array = []
-
 ## Node pool for reusing nodes
 var __node_pool__: Array[Node] = []
 
@@ -37,6 +35,7 @@ func _dispose() -> void:
 	super._dispose()
 	pass
 
+
 func _get_or_create_node() -> Node:
 	if __node_pool__.is_empty():
 		return __packed_scene__.instantiate()
@@ -46,6 +45,7 @@ func _get_or_create_node() -> Node:
 func _recycle_node(node: Node) -> void:
 	__node_pool__.push_back(node)
 	pass
+
 
 func _update(diff: int, arg) -> void:
 	if diff > -1:
@@ -78,6 +78,7 @@ func _update_diff(diff) -> void:
 		__bindings__[diff] = __callable__.call(node, new_data, diff)
 	pass
 
+
 func _update_array() -> void:
 	var current_children = __node__.get_children()
 	var current_child_count = current_children.size()
@@ -102,6 +103,7 @@ func _update_array() -> void:
 	for i in __ref__.value.size():
 		__bindings__.append(__callable__.call(current_children[i], __ref__.value[i], i))
 	pass
+
 
 func _update_order(index_mapping: Dictionary) -> void:
 	var current_children = __node__.get_children()

@@ -1,4 +1,5 @@
-class_name DictRefBinding extends Binding
+class_name DictRefBinding
+extends Binding
 ## Dictionary-based reference binding that manages multiple references by key
 
 var __refs__: Dictionary[String, Ref]

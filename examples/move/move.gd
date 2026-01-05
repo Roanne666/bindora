@@ -1,16 +1,20 @@
 extends Node2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
-
 var pos_ref := RefVector2.new()
 var speed_ref := RefVector2.new()
 var speed_value := 200
+
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 
 func _ready() -> void:
 	pos_ref.value = sprite_2d.position
 	pos_ref.bind_property(sprite_2d, "position")
 	pass
+
+
+func _process(delta: float) -> void:
+	pos_ref.value += speed_ref.value * delta
 
 
 func _input(event: InputEvent) -> void:
@@ -30,7 +34,3 @@ func _input(event: InputEvent) -> void:
 			elif event.keycode == KEY_UP or event.keycode == KEY_DOWN:
 				speed_ref.value.y = 0
 	pass
-
-
-func _process(delta: float) -> void:
-	pos_ref.value += speed_ref.value * delta

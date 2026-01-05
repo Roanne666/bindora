@@ -1,4 +1,5 @@
-class_name ShaderBinding extends DictRefBinding
+class_name ShaderBinding
+extends DictRefBinding
 ## Shader parameter binding for ShaderMaterial properties
 ##
 ## Automatically updates shader parameters when bound reference values change.

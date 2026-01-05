@@ -1,5 +1,11 @@
 @tool
-class_name RefInt extends RefVariant
+class_name RefInt
+extends RefVariant
+
+
+func _init(_value := int()) -> void:
+	super(TYPE_INT, _value)
+	pass
 
 
 func set_value(_value: int) -> void:
@@ -9,8 +15,3 @@ func set_value(_value: int) -> void:
 
 func get_value() -> int:
 	return value
-
-
-func _init(_value:=int()) -> void:
-	super(TYPE_INT, _value)
-	pass

@@ -1,4 +1,5 @@
-class_name MultiRefBinding extends Binding
+class_name MultiRefBinding
+extends Binding
 ## A binding that monitors multiple references simultaneously
 
 var __refs__: Array[Ref]

@@ -1,5 +1,15 @@
 extends Control
 
+@export var text_ref := RefString.new("test")
+@export var max_value_ref := RefFloat.new(100.0)
+@export var color_ref := RefColor.new()
+
+var click_ref := RefInt.new()
+var size_ref := RefVector2.new(Vector2(100.0, 100.0))
+var disabled_ref := RefBool.new()
+var custom_ref := RefInt.new()
+var mouse_ref := RefVector2.new()
+
 @onready var text_label: Label = $TextLabel
 @onready var text_edit: TextEdit = $TextEdit
 @onready var button_label: Label = $ButtonLabel
@@ -16,15 +26,6 @@ extends Control
 @onready var background: ColorRect = $Background
 @onready var color_picker_button: ColorPickerButton = $ColorPickerButton
 
-@export var text_ref := RefString.new("test")
-var click_ref := RefInt.new()
-@export var max_value_ref := RefFloat.new(100.0)
-var size_ref := RefVector2.new(Vector2(100.0, 100.0))
-var disabled_ref := RefBool.new()
-var custom_ref := RefInt.new()
-var mouse_ref := RefVector2.new()
-@export var color_ref := RefColor.new()
-
 
 func _ready() -> void:
 	# Edit binding.
@@ -35,17 +36,17 @@ func _ready() -> void:
 	click_ref.bind_text(button_label)
 	for i in h_box_container.get_child_count():
 		var button = h_box_container.get_child(i) as Button
-		button.pressed.connect(func(): click_ref.value=i + 1)
+		button.pressed.connect(func(): click_ref.value = i + 1)
 
 	# Nest binding.
 	max_value_ref.bind_text(slider_label)
 	max_value_ref.bind_input(max_value_slider)
-	max_value_ref.bind_multi_property({width_slider: "max_value", height_slider: "max_value"})
+	max_value_ref.bind_multi_property({ width_slider: "max_value", height_slider: "max_value" })
 	size_ref.bind_property(color_rect, "size")
-	size_ref.bind_multi_input({width_slider: "x", height_slider: "y"})
+	size_ref.bind_multi_input({ width_slider: "x", height_slider: "y" })
 
 	# Toggle binding.
-	disabled_ref.bind_multi_toggle({check_button: false, check_button_2: false})
+	disabled_ref.bind_multi_toggle({ check_button: false, check_button_2: false })
 	disabled_ref.bind_property(times_button, "disabled")
 
 	# Custom binding, watcher and show binding.
@@ -63,6 +64,12 @@ func _ready() -> void:
 	pass
 
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		mouse_ref.value = event.position
+	pass
+
+
 func _print_times(_old_value: int, _new_value: int) -> void:
 	print("Click %d times." % _new_value)
 	if _new_value >= 5:
@@ -75,10 +82,4 @@ func _custom_bind(_node: Button, _refs: Array[Ref]) -> void:
 		_node.text = "Click odd times"
 	else:
 		_node.text = "Click even times"
-	pass
-
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		mouse_ref.value = event.position
 	pass

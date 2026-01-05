@@ -1,4 +1,5 @@
-class_name VisibleBinding extends SingleRefBinding
+class_name VisibleBinding
+extends SingleRefBinding
 ## Visibility binding that dynamically controls node visibility
 ##
 ## Uses a callback function to determine visibility based on a reference value.
@@ -10,7 +11,7 @@ var __condition__
 
 func _init(_node: CanvasItem, _ref: RefVariant, _condition) -> void:
 	super(_node, _ref)
-	
+
 	if not (_condition is Ref or _condition is Callable):
 		push_error("VisibleBinding: Condition must be Ref or Callable, got %s" % typeof(_condition))
 		return

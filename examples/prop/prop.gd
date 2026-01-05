@@ -1,6 +1,5 @@
 extends Control
 
-
 var text_ref := RefString.new("test")
 
 

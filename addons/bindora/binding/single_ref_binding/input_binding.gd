@@ -1,4 +1,5 @@
-class_name InputBinding extends SingleRefBinding
+class_name InputBinding
+extends SingleRefBinding
 ## Input binding for UI controls that support text/value changes
 ##
 ## Binds input controls (like LineEdit, SpinBox, ColorPicker) to reference values.
@@ -10,7 +11,6 @@ class_name InputBinding extends SingleRefBinding
 
 ## The property name to bind to (empty for direct value binding)
 var __property__: String
-
 ## The detected signal type ("text_changed", "value_changed", or "color_changed")
 var __signal_type__: String
 
@@ -32,7 +32,7 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String = "") -> void:
 	else:
 		push_error("InputBinding: Node '%s' missing supported signal (text_changed, value_changed, or color_changed)" % _node.name)
 		return
-		
+
 	_update(null, __ref__.value)
 	pass
 

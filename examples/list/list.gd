@@ -1,5 +1,10 @@
 extends Control
 
+const ITEM = preload("res://examples/list/item.tscn")
+const NAMES := ["Tom", "Jerry", "Peter"]
+
+var list_ref := RefArray.new()
+
 @onready var item_list: VBoxContainer = $ItemList
 @onready var add_item_button: Button = $AddItemButton
 @onready var random_remove_button: Button = $RandomRemoveButton
@@ -9,12 +14,6 @@ extends Control
 @onready var add_multi_items_button: Button = $AddMultiItemsButton
 @onready var set_new_array_button: Button = $SetNewArrayButton
 @onready var label: Label = $Label
-
-
-const ITEM = preload("res://examples/list/item.tscn")
-const NAMES := ["Tom", "Jerry", "Peter"]
-
-var list_ref := RefArray.new()
 
 
 func _ready() -> void:
@@ -30,7 +29,7 @@ func _ready() -> void:
 	reverse_items_button.pressed.connect(_measure_performance.bind("reverse", func(): list_ref.reverse()))
 	sort_items_button.pressed.connect(_measure_performance.bind("sort", func(): list_ref.sort_custom(func(a: Person, b: Person): return a.uid.value < b.uid.value)))
 	add_multi_items_button.pressed.connect(_measure_performance.bind("add_1000", func(): _on_add_multi_items_button_pressed()))
-	set_new_array_button.pressed.connect(_measure_performance.bind("set_new_array",func():_on_set_new_array_button_pressed()))
+	set_new_array_button.pressed.connect(_measure_performance.bind("set_new_array", func(): _on_set_new_array_button_pressed()))
 	pass
 
 
@@ -75,12 +74,14 @@ func _on_add_multi_items_button_pressed() -> void:
 	for i in 1000:
 		list_ref.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
 
-func _on_set_new_array_button_pressed()->void:
-	var new_value :Array[Person]= []
+
+func _on_set_new_array_button_pressed() -> void:
+	var new_value: Array[Person] = []
 	for i in 1000:
 		new_value.append(Person.new(NAMES.pick_random(), randi_range(20, 40)))
 	list_ref.set_value(new_value)
 
+
 # Multi ref binding.
 func _create_binding(_scene: Node, _data: Person, _index: int) -> Array[Binding]:
-	return [TextBinding.new(_scene, {"uid": _data.uid, "full_name": _data.full_name, "age": _data.age})]
+	return [TextBinding.new(_scene, { "uid": _data.uid, "full_name": _data.full_name, "age": _data.age })]

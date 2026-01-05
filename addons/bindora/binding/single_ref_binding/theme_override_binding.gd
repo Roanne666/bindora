@@ -1,4 +1,5 @@
-class_name ThemeOverrideBinding extends SingleRefBinding
+class_name ThemeOverrideBinding
+extends SingleRefBinding
 ## Theme override binding that dynamically updates theme properties
 ##
 ## Automatically manages theme overrides for various node properties including:
@@ -16,12 +17,11 @@ const THEME_OVERRIDE_METHODS = {
 	"theme_override_fonts": "add_theme_font_override",
 	"theme_override_font_sizes": "add_theme_font_size_override",
 	"theme_override_icons": "add_theme_icon_override",
-	"theme_override_styles": "add_theme_stylebox_override"
+	"theme_override_styles": "add_theme_stylebox_override",
 }
 
 ## The specific theme property being overridden. (e.g. "font_color")
 var __property__: String
-
 ## The method name used to apply the override. (auto generate)
 var __method__: String
 
@@ -39,7 +39,7 @@ func _init(_node: CanvasItem, _ref: RefVariant, _property: String) -> void:
 	if not __method__:
 		push_error("ThemeOverrideBinding: Node '%s' has invalid theme override property '%s'" % [_node.name, _property])
 		return
-		
+
 	__property__ = _property
 	_update(null, __ref__.value)
 	pass

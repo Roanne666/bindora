@@ -1,5 +1,11 @@
 @tool
-class_name RefBool extends RefVariant
+class_name RefBool
+extends RefVariant
+
+
+func _init(_value := bool()) -> void:
+	super(TYPE_BOOL, _value)
+	pass
 
 
 func set_value(_value: bool) -> void:
@@ -9,8 +15,3 @@ func set_value(_value: bool) -> void:
 
 func get_value() -> bool:
 	return value
-
-
-func _init(_value:=bool()) -> void:
-	super(TYPE_BOOL, _value)
-	pass

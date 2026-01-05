@@ -1,4 +1,5 @@
-class_name Binding extends Object
+class_name Binding
+extends Object
 ## Base binding class that connects reference values to nodes.
 ##
 ## This serves as the foundation for creating reactive bindings between data
@@ -21,6 +22,7 @@ func _on_ref_value_changed(_old_value, _new_value) -> void:
 	else:
 		_update(_old_value, _new_value)
 	pass
+
 
 ## Updates the binding with a new value
 func _update(_old_value, _new_value) -> void:

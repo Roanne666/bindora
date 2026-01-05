@@ -1,11 +1,11 @@
 extends Control
 
+var font_size := RefInt.new(24)
+var font_color := RefColor.new()
+
 @onready var label: Label = $Label
 @onready var h_slider: HSlider = $HSlider
 @onready var color_picker_button: ColorPickerButton = $ColorPickerButton
-
-var font_size := RefInt.new(24)
-var font_color := RefColor.new()
 
 
 func _ready() -> void:

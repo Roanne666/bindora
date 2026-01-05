@@ -1,4 +1,5 @@
-class_name ToggleBinding extends SingleRefBinding
+class_name ToggleBinding
+extends SingleRefBinding
 ## Toggle binding for boolean state synchronization
 ##
 ## Requires the target node to have a "toggled" property. (like [CheckBox])

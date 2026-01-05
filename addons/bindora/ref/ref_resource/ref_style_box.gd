@@ -1,5 +1,11 @@
 @tool
-class_name RefStyleBox extends RefResource
+class_name RefStyleBox
+extends RefResource
+
+
+func _init(_value: StyleBox = null) -> void:
+	super(_value, "StyleBox")
+	pass
 
 
 func set_value(_value: StyleBox) -> void:
@@ -9,8 +15,3 @@ func set_value(_value: StyleBox) -> void:
 
 func get_value() -> StyleBox:
 	return value
-
-
-func _init(_value: StyleBox = null) -> void:
-	super(_value, "StyleBox")
-	pass
